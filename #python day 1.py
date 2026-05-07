@@ -1,4 +1,4 @@
-#python day 10
+#python day 12
 def sort_tasks(tasks):
     print('EASY:')
     for item in tasks:
@@ -71,8 +71,9 @@ def search_task(tasks):
     for item in tasks:
         task = item['name']
         difficulty = item['difficulty']
+        priority = item['priority']
         if search_term in task:
-            print(f'{task} - {difficulty.upper()}')
+            print(f'{task} - {difficulty.upper()} *Priority Level: {priority}')
             found = True
     if found == False:
         print('No tasks found matching search')
@@ -125,9 +126,19 @@ def add_task(tasks):
     else:
         print('Invalid choice')
         return
+    print('Assign a prority level to the task from 1-5 (1 being low priority and 5 being high priority)')
+    try:
+        priority = int(input())
+    except ValueError:
+        print('User must input a number from 1-5')
+        return
+    if priority < 1 or priority > 5:
+        print('Prority level must be a number from 1-5')
+        return
     tasks.append({
         "name":task,
-        "difficulty":difficulty
+        "difficulty":difficulty,
+        "priority":priority
                   })
     if not task:
         print('Task must have atleast one character')
@@ -157,8 +168,18 @@ def view_tasks(tasks):
     for index, item in enumerate(tasks):
         task = item['name']
         difficulty = item['difficulty']
-        print(f'{index+1}. {task} - {difficulty.upper()}')
+        priority = item['priority']
+        print(f'{index+1}. {task} - {difficulty.upper()} *Priority level: {priority}')
     return
+def sort_important(tasks):
+    tasks.sort(key = lambda item: item['priority'], reverse=True)
+    final = ''
+    for item in tasks:
+        task = item['name']
+        difficulty = item['difficulty']
+        priority = item['priority']
+        final += f'{task} - {difficulty.upper()} *Priority Level: {priority}\n'
+    print(final)
 def run():
     should_quit = False
     print('What is your name?')
@@ -166,7 +187,7 @@ def run():
     tasks = []
     completed_tasks = []
     while not should_quit:
-        print('=====\nprint name\nnew name\nadd task\nremove task\nview tasks\nclear tasks\nmark task\nview completed tasks\nsearch\nfilter\nedit task\nsort tasks\nquit\n')
+        print('=====\nprint name\nnew name\nadd task\nremove task\nview tasks\nclear tasks\nmark task\nview completed tasks\nsearch\nfilter\nedit task\nsort tasks\nsort improtant\nquit\n')
         choice = input().lower()
         if choice == 'print name':
             print(print_name(name))
@@ -196,6 +217,8 @@ def run():
             edit_task(tasks)
         elif choice == 'sort tasks':
             sort_tasks(tasks)
+        elif choice == 'sort important':
+            sort_important(tasks)
         else:
             print(f'\n{choice} is not a valid option\n')
 run()
