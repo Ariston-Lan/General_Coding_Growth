@@ -1,5 +1,26 @@
 #python day 12
+def show_due_soon(tasks):
+    if not tasks:
+        print('No tasks currently avaliable')
+        return
+    print('Choose date')
+    try:
+        date = input().lower()
+    except ValueError:
+        print('Date must be a weekday Monday-Friday')
+    if date == 'monday' or date == 'tuesday' or date == 'wednesday' or date == 'thursday' or date == 'friday' or date == 'saturday' or date == 'sunday':
+        for item in tasks:
+            task = item['name']
+            difficulty = item['difficulty']
+            priority = item['priority']
+            if item['due_date'] == date:
+                print(f'{task} - {difficulty.upper()} *Priority Level: {priority}')
+    else:
+        print('Date must be a weekday Monday-Friday')
 def sort_tasks(tasks):
+    if not tasks:
+        print('No tasks currently avaliable')
+        return
     print('EASY:')
     for item in tasks:
         task = item['name']
@@ -19,6 +40,9 @@ def sort_tasks(tasks):
         if item['difficulty'] == 'hard':
             print(f'{task} - {difficulty.upper()}')
 def edit_task(tasks):
+    if not tasks:
+        print('No task currently avaliable')
+        return
     view_tasks(tasks)
     print('What task do you want to edit? (type index NOT task name)')
     try:
@@ -50,6 +74,9 @@ def edit_task(tasks):
                 else:
                     print('Invalid input, type either index or difficulty')
 def filter_tasks(tasks):
+    if not tasks:
+        print('No task currently avaliable')
+        return
     found = False
     print('Choose difficulty to filter\n1. Easy\n2. Medium\n3. Hard')
     difficulty_filter = input().lower()
@@ -65,6 +92,9 @@ def filter_tasks(tasks):
     if found == False:
         print('No tasks found for selected difficulty')
 def search_task(tasks):
+    if not tasks:
+        print('No tasks currently avaliable')
+        return
     print('Search...')
     search_term = input()
     found = False
@@ -85,6 +115,9 @@ def view_completed_tasks(completed_tasks):
         difficulty = item["difficulty"]
         print(f'{index+1}. {task} - {difficulty.upper()}')
 def complete_task(tasks, completed_tasks):
+    if not tasks:
+        print('No task currently avaliable')
+        return
     print('What task do you wish to mark complete?')
     view_tasks(tasks)
     try:
@@ -114,6 +147,9 @@ def print_name(name):
 def add_task(tasks):
     print('What task do you wish to add?')
     task = input().lower()
+    if not task:
+        print('Task must have atleast one character')
+        return
     print('What is the difficulty of the task?')
     print('\n1. Easy\n2. Medium\n3. Hard')
     choice = input().lower()
@@ -135,15 +171,23 @@ def add_task(tasks):
     if priority < 1 or priority > 5:
         print('Prority level must be a number from 1-5')
         return
-    tasks.append({
-        "name":task,
-        "difficulty":difficulty,
-        "priority":priority
-                  })
-    if not task:
-        print('Task must have atleast one character')
+    print('Assign a due date for specified task')
+    try:
+        date = input().lower()
+        print(date)
+    except ValueError:
+        print('Date must be a weekday Monday-Sunday')
         return
-    print(f'Task {task} added successfully!')
+    if date == 'monday' or date == 'tuesday' or date == 'wednesday' or date == 'thursday' or date == 'friday' or date == 'saturday' or date == 'sunday':
+        tasks.append({
+            "name":task,
+            "difficulty":difficulty,
+            "priority":priority,
+            "due_date":date
+                    })
+        print(f'Task {task} added successfully!')
+    else:
+        print('Date must be a weekday Monday-Sunday')
     return tasks
 def remove_task(tasks):
     if not tasks:
@@ -172,6 +216,9 @@ def view_tasks(tasks):
         print(f'{index+1}. {task} - {difficulty.upper()} *Priority level: {priority}')
     return
 def sort_important(tasks):
+    if not tasks:
+        print('No tasks currently avaliable')
+        return
     tasks.sort(key = lambda item: item['priority'], reverse=True)
     final = ''
     for item in tasks:
@@ -187,7 +234,7 @@ def run():
     tasks = []
     completed_tasks = []
     while not should_quit:
-        print('=====\nprint name\nnew name\nadd task\nremove task\nview tasks\nclear tasks\nmark task\nview completed tasks\nsearch\nfilter\nedit task\nsort tasks\nsort improtant\nquit\n')
+        print('=====\nprint name\nnew name\nadd task\nremove task\nview tasks\nclear tasks\nmark task\nview completed tasks\nsearch\nfilter\nedit task\nsort tasks\nsort improtant\nshow due soon\nquit\n')
         choice = input().lower()
         if choice == 'print name':
             print(print_name(name))
@@ -219,6 +266,8 @@ def run():
             sort_tasks(tasks)
         elif choice == 'sort important':
             sort_important(tasks)
+        elif choice == 'show due soon':
+            show_due_soon(tasks)
         else:
             print(f'\n{choice} is not a valid option\n')
 run()
