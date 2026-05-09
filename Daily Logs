@@ -49,6 +49,13 @@ This allows editing for tasks difficulty and structure
   }
 Also added function that filters due dates
   show_due_soon()
+===
 #Day 13 - Added an advanced filter that includes both difficulty and priority:
   advanced_filter(tasks)
 Did more nested loops practice as well
+===
+#Day 14 - I have officially reached a point in my project where adding more functions creates a more convoluted function than efficient one
+which is why I am now working on efficiency in my system (in a very laidback way because this project is more of a sandbox to me right now than anything else).
+With that being said, I made an auto_assign_priority feature that's based on the tasks difficulty:
+  auto_assign_priority(difficulty)
+Also did more nested loops drills
