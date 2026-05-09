@@ -1,0 +1,54 @@
+#Day 1 - Began building a Python task manager, built foundational struture (add task, remove task, view tasks)
+===
+#Day 2 - Continued strengthening function usage, practiced calling functions and passing arguments. 
+===
+#Day 3 - Added and removed tasks from lists, practiced conditionals and input validation
+===
+#Day 4 - Imrpoved program flow and organization, added better interaction system between functions
+===
+#Day 5 - Focused on debugging and fixing logical errors, improved confidence reading error messages
+===
+#Day 6 - Added a completed-task functionality:
+  complete_task()
+  view_completed_tasks()
+implemented transferring tasks betweena ctive and completed task lists.
+===
+#Day 7 - Refactored (I've been WAITING to use that word) task structure from simple strings into dictionaries.
+  Tasks are now stored as:
+    {'task name':difficulty}
+===
+#Day 8 - Added task search functionality:
+  search()
+implemented substring matching for task names, added logic to detect when no matching tasks exist(I use this a LOT)
+===
+#Day 9 - Added task filtering by difficulty, improved valdiation system (less errors!!), learned nested loops
+  filter_tasks()
+===
+#Day 10 - Refactored task dictionaries so now the dictionary actually store information seperately and effectively
+  {
+    "name": task,
+    "difficulty": difficulty
+}
+This allows editing for tasks difficulty and structure
+===
+#Day 11 - Added task priority system & an important task sorting function that sorts via lambda function:
+  {
+    "name": task,
+    "difficulty": difficulty,
+    "priority": priority
+  }
+  sort_tasks()
+    tasks.sort(key=lambda item: item['priority'], reverse=True) #Since all tasks are in a list, this sorts the dictionaries based on greatest to least priority value
+===
+#Day 12 - Added due date system using weekdays, exapnded task structure AGAIN:
+  {
+      "name": task,
+      "difficulty": difficulty,
+      "priority": priority,
+      "due_date": due_date
+  }
+Also added function that filters due dates
+  show_due_soon()
+#Day 13 - Added an advanced filter that includes both difficulty and priority:
+  advanced_filter(tasks)
+Did more nested loops practice as well
