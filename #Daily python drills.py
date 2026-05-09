@@ -108,16 +108,32 @@
 # print(unique_elements(nums))
 
 #===Day 13 Drills===
-nums = [1,2,2,3,3,3,4]
-def appear_only_once(nums):
-    only_once_nums = []
+# nums = [1,2,2,3,3,3,4]
+# def appear_only_once(nums):
+#     only_once_nums = []
+#     for num in nums:
+#         amount = 0
+#         current_target = num
+#         for item in nums:
+#             if item == current_target:
+#                 amount +=1
+#         if amount == 1:
+#             only_once_nums.append(num)
+#     return len(only_once_nums)
+# print(appear_only_once(nums))
+
+#=== Day 14 Drills ===
+nums = [1,2,3,2,5]
+def first_appearing_num(nums):
+    repeated_values = []
     for num in nums:
+        target = num
         amount = 0
-        current_target = num
         for item in nums:
-            if item == current_target:
+            if item == target:
                 amount +=1
-        if amount == 1:
-            only_once_nums.append(num)
-    return len(only_once_nums)
-print(appear_only_once(nums))
+        if amount > 1 and num not in repeated_values:
+            repeated_values.append(num)
+    return repeated_values[0]
+print(first_appearing_num(nums))
+

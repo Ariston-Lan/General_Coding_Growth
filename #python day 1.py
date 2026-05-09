@@ -1,4 +1,37 @@
-#python day 12
+#python day 13
+def auto_assign_priority(difficulty):
+    if difficulty == 'easy':
+        priority = 1
+    elif difficulty == 'medium':
+        priority = 3
+    elif difficulty == 'hard':
+        priority = 5
+    else:
+        print('Unable to assign priority: Difficulty must be easy, medium, or hard.')
+        return
+    return priority
+def advanced_filter(tasks):
+    if not tasks:
+        print('No tasks avaliable')
+        return
+    print('Choose difficulty:\nEasy\nMedium\nHard')
+    difficulty_filter = input().lower()
+    if difficulty_filter == 'easy' or difficulty_filter == 'medium' or difficulty_filter == 'hard':
+        print('Choose minimum priority (1-5)')
+        try:
+            priority_filter = int(input())
+        except ValueError:
+            print('minimum priority must be a number 1-5')
+            return
+        if priority_filter < 1 or priority_filter > 5:
+            print('minimum priority must be a number 1-5')
+            return
+        for item in tasks:
+            difficulty = item['difficulty']
+            task = item['name']
+            priority = item['priority']
+            if item['difficulty'] == difficulty_filter and item['priority'] >= priority_filter:
+                print(f'{task} - {difficulty.upper()} *Priority Level: {priority}')
 def show_due_soon(tasks):
     if not tasks:
         print('No tasks currently avaliable')
@@ -162,12 +195,16 @@ def add_task(tasks):
     else:
         print('Invalid choice')
         return
-    print('Assign a prority level to the task from 1-5 (1 being low priority and 5 being high priority)')
-    try:
-        priority = int(input())
-    except ValueError:
-        print('User must input a number from 1-5')
-        return
+    print('Assign a prority level to the task from 1-5 (Optional)')
+    priority = input()
+    if not priority:
+        priority = auto_assign_priority(difficulty)
+    elif priority:
+        try:
+            int(priority)
+        except ValueError:
+            print('User must input a number from 1-5')
+            return
     if priority < 1 or priority > 5:
         print('Prority level must be a number from 1-5')
         return
@@ -234,7 +271,7 @@ def run():
     tasks = []
     completed_tasks = []
     while not should_quit:
-        print('=====\nprint name\nnew name\nadd task\nremove task\nview tasks\nclear tasks\nmark task\nview completed tasks\nsearch\nfilter\nedit task\nsort tasks\nsort improtant\nshow due soon\nquit\n')
+        print('=====\nprint name\nnew name\nadd task\nremove task\nview tasks\nclear tasks\nmark task\nview completed tasks\nsearch\nfilter\nedit task\nsort tasks\nsort improtant\nshow due soon\nadvanced filter\nquit\n')
         choice = input().lower()
         if choice == 'print name':
             print(print_name(name))
@@ -268,6 +305,8 @@ def run():
             sort_important(tasks)
         elif choice == 'show due soon':
             show_due_soon(tasks)
+        elif choice == 'advanced filter':
+            advanced_filter(tasks)
         else:
             print(f'\n{choice} is not a valid option\n')
 run()
