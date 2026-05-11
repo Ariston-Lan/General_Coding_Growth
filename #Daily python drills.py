@@ -122,18 +122,34 @@
 #     return len(only_once_nums)
 # print(appear_only_once(nums))
 
-#=== Day 14 Drills ===
-nums = [1,2,3,2,5]
-def first_appearing_num(nums):
-    repeated_values = []
+# #=== Day 14 Drills ===
+# nums = [1,2,3,2,5]
+# def first_appearing_num(nums):
+#     repeated_values = []
+#     for num in nums:
+#         target = num
+#         amount = 0
+#         for item in nums:
+#             if item == target:
+#                 amount +=1
+#         if amount > 1 and num not in repeated_values:
+#             repeated_values.append(num)
+#     return repeated_values[0]
+# print(first_appearing_num(nums))
+
+#===Day 15 Drill===
+nums =[1,2,2,2,3,3,3]
+def most_frequent_num(nums):
+    largest_amount = 0
+    most_frequent = 0
     for num in nums:
-        target = num
         amount = 0
+        target = num
         for item in nums:
             if item == target:
-                amount +=1
-        if amount > 1 and num not in repeated_values:
-            repeated_values.append(num)
-    return repeated_values[0]
-print(first_appearing_num(nums))
-
+                amount += 1
+        if amount > largest_amount:
+            largest_amount = amount
+            most_frequent = num
+    return most_frequent
+print(most_frequent_num(nums))

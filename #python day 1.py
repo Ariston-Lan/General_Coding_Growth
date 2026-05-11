@@ -1,4 +1,34 @@
-#python day 13
+#python day 14
+valid_days = ['monday','tuesday','wednesday','thursay','friday','saturday','sunday']
+def task_statistics(tasks, completed_tasks):
+    print('Enter current day of week')
+    try:
+        current_date = input().lower()
+    except ValueError:
+        print('Current date must be day of week monday-sunday')
+        return
+    if not current_date in valid_days:
+        print('Current day must be day of week monday-sunday')
+        return
+    tasks_due_today = 0
+    tasks_amount = len(tasks)
+    completed_tasks_amount = len(completed_tasks)
+    priority_tasks_amount = 0
+    total_tasks = tasks_amount + completed_tasks_amount
+    completion_rate = (completed_tasks_amount/total_tasks)*100
+    for item in tasks:
+        priority = item['priority']
+        due_date = item['due_date']
+        if priority >= 4:
+            priority_tasks_amount += 1
+        if current_date == due_date:
+            tasks_due_today +=1
+    print(f'''\nTotal tasks: {total_tasks}
+          \nCompleted tasks: {completed_tasks_amount}
+          \nHigh priority tasks: {priority_tasks_amount}
+          \nTasks due {current_date}: {tasks_due_today}
+          \nTasks completion rate: {completion_rate}%
+        ''')
 def auto_assign_priority(difficulty):
     if difficulty == 'easy':
         priority = 1
@@ -201,7 +231,7 @@ def add_task(tasks):
         priority = auto_assign_priority(difficulty)
     elif priority:
         try:
-            int(priority)
+            priority = int(priority)
         except ValueError:
             print('User must input a number from 1-5')
             return
@@ -215,16 +245,16 @@ def add_task(tasks):
     except ValueError:
         print('Date must be a weekday Monday-Sunday')
         return
-    if date == 'monday' or date == 'tuesday' or date == 'wednesday' or date == 'thursday' or date == 'friday' or date == 'saturday' or date == 'sunday':
-        tasks.append({
-            "name":task,
-            "difficulty":difficulty,
-            "priority":priority,
-            "due_date":date
-                    })
-        print(f'Task {task} added successfully!')
-    else:
-        print('Date must be a weekday Monday-Sunday')
+    if not date in valid_days:
+        print('Date must be weekday Monday-Sunday')
+        return
+    tasks.append({
+        "name":task,
+        "difficulty":difficulty,
+        "priority":priority,
+        "due_date":date
+                })
+    print(f'Task {task} added successfully!')
     return tasks
 def remove_task(tasks):
     if not tasks:
@@ -271,7 +301,8 @@ def run():
     tasks = []
     completed_tasks = []
     while not should_quit:
-        print('=====\nprint name\nnew name\nadd task\nremove task\nview tasks\nclear tasks\nmark task\nview completed tasks\nsearch\nfilter\nedit task\nsort tasks\nsort improtant\nshow due soon\nadvanced filter\nquit\n')
+        print('''=====\nprint name\nnew name\nadd task\nremove task\nview tasksnclear tasks\nmark task\nview completed tasks\nsearch\nfilter\nedit task\nsort tasks\nsort improtant\nshow due soon\nadvanced filter\nstats\nquit
+              \n''')
         choice = input().lower()
         if choice == 'print name':
             print(print_name(name))
@@ -307,6 +338,8 @@ def run():
             show_due_soon(tasks)
         elif choice == 'advanced filter':
             advanced_filter(tasks)
+        elif choice == 'stats':
+            task_statistics(tasks, completed_tasks)
         else:
             print(f'\n{choice} is not a valid option\n')
 run()
