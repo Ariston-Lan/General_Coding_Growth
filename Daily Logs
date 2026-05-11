@@ -59,3 +59,9 @@ which is why I am now working on efficiency in my system (in a very laidback way
 With that being said, I made an auto_assign_priority feature that's based on the tasks difficulty:
   auto_assign_priority(difficulty)
 Also did more nested loops drills
+===
+#Day 15 - Added a command to view statistics regarding your stats, and did a simple nested loop drill looking at what was the most frequent number within
+a list. Also, made my verification process more concise for verifying user inputting an incorrect due_date (Now all due_dates must be in valid_days[], instead of
+a long list of does due_date == monday or due_date == tuesday, and so on). Tomorrow, going to rework my menu so it feels more smooth.
+  task_statistics(tasks, completed_tasks):
+  valid_days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday']
