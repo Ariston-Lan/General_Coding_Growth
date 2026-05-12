@@ -137,19 +137,48 @@
 #     return repeated_values[0]
 # print(first_appearing_num(nums))
 
-#===Day 15 Drill===
-nums =[1,2,2,2,3,3,3]
-def most_frequent_num(nums):
-    largest_amount = 0
+# #===Day 15 Drill===
+# nums =[1,2,2,3,3,3]
+# def most_frequent_num(nums):
+#     largest_amount = 0
+#     most_frequent = 0
+#     for num in nums:
+#         amount = 0
+#         target = num
+#         for item in nums:
+#             if item == target:
+#                 amount += 1
+#         if amount > largest_amount:
+#             largest_amount = amount
+#             most_frequent = num
+#     return most_frequent
+# print(most_frequent_num(nums))
+
+#=== Day 16 ===
+nums = [1,2,2,3,3,3,4,4]
+def second_most_frequent(nums):
+    seen_nums = []
+    greatest_amount = 0
     most_frequent = 0
+    second_greatest = 0
+    second_frequent_num = 0
     for num in nums:
         amount = 0
         target = num
         for item in nums:
             if item == target:
-                amount += 1
-        if amount > largest_amount:
-            largest_amount = amount
-            most_frequent = num
-    return most_frequent
-print(most_frequent_num(nums))
+                amount+=1
+        if not num in seen_nums:
+            if amount >= greatest_amount:
+                second_greatest = greatest_amount
+                greatest_amount = amount
+                second_frequent_num = most_frequent
+                most_frequent = num
+            elif amount >= second_greatest:
+                second_greatest = amount
+                second_frequent_num = num
+            seen_nums.append(num)
+        else:
+            pass
+    return second_frequent_num
+print(second_most_frequent(nums))

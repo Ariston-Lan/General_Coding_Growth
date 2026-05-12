@@ -1,5 +1,13 @@
-#python day 14
-valid_days = ['monday','tuesday','wednesday','thursay','friday','saturday','sunday']
+#python day 15
+valid_days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday']
+def display_task(item, index=False):
+    task = item['name']
+    difficulty = item['difficulty']
+    priority = item['priority']
+    if index:
+        return (f'{index}. {task} - {difficulty.upper()} *Priority Level: {priority}')
+    else:
+        return (f'{task} - {difficulty.upper()} *Priority Level: {priority}')
 def task_statistics(tasks, completed_tasks):
     print('Enter current day of week')
     try:
@@ -15,7 +23,7 @@ def task_statistics(tasks, completed_tasks):
     completed_tasks_amount = len(completed_tasks)
     priority_tasks_amount = 0
     total_tasks = tasks_amount + completed_tasks_amount
-    completion_rate = (completed_tasks_amount/total_tasks)*100
+    completion_rate = round((completed_tasks_amount/total_tasks)*100, 2)
     for item in tasks:
         priority = item['priority']
         due_date = item['due_date']
@@ -26,8 +34,8 @@ def task_statistics(tasks, completed_tasks):
     print(f'''\nTotal tasks: {total_tasks}
           \nCompleted tasks: {completed_tasks_amount}
           \nHigh priority tasks: {priority_tasks_amount}
-          \nTasks due {current_date}: {tasks_due_today}
-          \nTasks completion rate: {completion_rate}%
+          \nTasks due today({current_date}): {tasks_due_today}
+          \nTasks completion rate: {(completion_rate)}%
         ''')
 def auto_assign_priority(difficulty):
     if difficulty == 'easy':
@@ -57,11 +65,8 @@ def advanced_filter(tasks):
             print('minimum priority must be a number 1-5')
             return
         for item in tasks:
-            difficulty = item['difficulty']
-            task = item['name']
-            priority = item['priority']
             if item['difficulty'] == difficulty_filter and item['priority'] >= priority_filter:
-                print(f'{task} - {difficulty.upper()} *Priority Level: {priority}')
+                print(display_task(item))
 def show_due_soon(tasks):
     if not tasks:
         print('No tasks currently avaliable')
@@ -70,38 +75,29 @@ def show_due_soon(tasks):
     try:
         date = input().lower()
     except ValueError:
-        print('Date must be a weekday Monday-Friday')
-    if date == 'monday' or date == 'tuesday' or date == 'wednesday' or date == 'thursday' or date == 'friday' or date == 'saturday' or date == 'sunday':
+        print('Date must be a weekday Monday-Sunday')
+    if date in valid_days:
         for item in tasks:
-            task = item['name']
-            difficulty = item['difficulty']
-            priority = item['priority']
             if item['due_date'] == date:
-                print(f'{task} - {difficulty.upper()} *Priority Level: {priority}')
+                print(display_task(item))
     else:
-        print('Date must be a weekday Monday-Friday')
+        print('Date must be a weekday Monday-Sunday')
 def sort_tasks(tasks):
     if not tasks:
         print('No tasks currently avaliable')
         return
     print('EASY:')
     for item in tasks:
-        task = item['name']
-        difficulty = item['difficulty']
         if item['difficulty'] == 'easy':
-          print(f'{task} - {difficulty.upper()}')
+          print(display_task(item))
     print('\nMEDIUM:')
     for item in tasks:
-        task = item['name']
-        difficulty = item['difficulty']
         if item['difficulty'] == 'medium':
-            print(f'{task} - {difficulty.upper()}')
+            print(display_task(item))
     print('\nHARD:')
     for item in tasks:
-        task = item['name']
-        difficulty = item['difficulty']
         if item['difficulty'] == 'hard':
-            print(f'{task} - {difficulty.upper()}')
+            print(display_task(item))
 def edit_task(tasks):
     if not tasks:
         print('No task currently avaliable')
@@ -147,10 +143,8 @@ def filter_tasks(tasks):
         print('No input detected')
         return
     for item in tasks:
-        task = item["name"]
-        difficulty = item["difficulty"]
-        if difficulty == difficulty_filter:
-            print(f'{task} - {difficulty.upper()}')
+        if item['difficulty'] == difficulty_filter:
+            print(display_task(item))
             found = True
     if found == False:
         print('No tasks found for selected difficulty')
@@ -163,10 +157,8 @@ def search_task(tasks):
     found = False
     for item in tasks:
         task = item['name']
-        difficulty = item['difficulty']
-        priority = item['priority']
         if search_term in task:
-            print(f'{task} - {difficulty.upper()} *Priority Level: {priority}')
+            print(display_task(item))
             found = True
     if found == False:
         print('No tasks found matching search')
@@ -174,9 +166,7 @@ def view_completed_tasks(completed_tasks):
     if not completed_tasks:
         print('No tasks completed')
     for index, item in enumerate(completed_tasks):
-        task = item["name"]
-        difficulty = item["difficulty"]
-        print(f'{index+1}. {task} - {difficulty.upper()}')
+        print(display_task(item, index))
 def complete_task(tasks, completed_tasks):
     if not tasks:
         print('No task currently avaliable')
@@ -277,10 +267,7 @@ def view_tasks(tasks):
     if not tasks:
         print('No tasks available')
     for index, item in enumerate(tasks):
-        task = item['name']
-        difficulty = item['difficulty']
-        priority = item['priority']
-        print(f'{index+1}. {task} - {difficulty.upper()} *Priority level: {priority}')
+        print(display_task(item, index+1))
     return
 def sort_important(tasks):
     if not tasks:
@@ -289,10 +276,7 @@ def sort_important(tasks):
     tasks.sort(key = lambda item: item['priority'], reverse=True)
     final = ''
     for item in tasks:
-        task = item['name']
-        difficulty = item['difficulty']
-        priority = item['priority']
-        final += f'{task} - {difficulty.upper()} *Priority Level: {priority}\n'
+        final += display_task(item) + '\n'
     print(final)
 def run():
     should_quit = False
@@ -301,7 +285,7 @@ def run():
     tasks = []
     completed_tasks = []
     while not should_quit:
-        print('''=====\nprint name\nnew name\nadd task\nremove task\nview tasksnclear tasks\nmark task\nview completed tasks\nsearch\nfilter\nedit task\nsort tasks\nsort improtant\nshow due soon\nadvanced filter\nstats\nquit
+        print('''=====\nprint name\nnew name\nadd task\nremove task\nview tasks\nclear tasks\nmark task\nview completed tasks\nsearch\nfilter\nedit task\nsort tasks\nsort improtant\nshow due soon\nadvanced filter\nstats\nquit
               \n''')
         choice = input().lower()
         if choice == 'print name':
