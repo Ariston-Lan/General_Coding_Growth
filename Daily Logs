@@ -65,3 +65,8 @@ a list. Also, made my verification process more concise for verifying user input
 a long list of does due_date == monday or due_date == tuesday, and so on). Tomorrow, going to rework my menu so it feels more smooth.
   task_statistics(tasks, completed_tasks):
   valid_days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday']
+===
+#Day 16 - I am so tired and my brain is fried. Anyways, again my main thing here is making the program readable and less repetitive and convoluted. I created
+a function for displaying tasks since I would always type the same tasks into a string format over and over, so now that's display_task(item, index=False).
+Also, did a drill where you had to find the second most frequent number. Really honed in on keeping a memory bank of duplicate values, comparing them, and a 
+'multi-variable leaderboard system'. Its annoying but it was helpful ish. So in short, refractor(again), and annoying drill.
