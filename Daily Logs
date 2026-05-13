@@ -70,3 +70,13 @@ a long list of does due_date == monday or due_date == tuesday, and so on). Tomor
 a function for displaying tasks since I would always type the same tasks into a string format over and over, so now that's display_task(item, index=False).
 Also, did a drill where you had to find the second most frequent number. Really honed in on keeping a memory bank of duplicate values, comparing them, and a 
 'multi-variable leaderboard system'. Its annoying but it was helpful ish. So in short, refractor(again), and annoying drill.
+===
+#Day 17 - Did an easy drill using nested loop and tracking amount. Added a new category variable to each new task and a way to filter tasks by category.
+Also redid the menu to make it smaller and less convoluted. Tasks now look like:
+  ({
+        "name":task,
+        "difficulty":difficulty,
+        "priority":priority,
+        "due_date":date,
+        "category":category
+                })
