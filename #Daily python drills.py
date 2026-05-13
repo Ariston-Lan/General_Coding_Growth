@@ -155,30 +155,43 @@
 # print(most_frequent_num(nums))
 
 #=== Day 16 ===
-nums = [1,2,2,3,3,3,4,4]
-def second_most_frequent(nums):
-    seen_nums = []
-    greatest_amount = 0
-    most_frequent = 0
-    second_greatest = 0
-    second_frequent_num = 0
+# nums = [1,2,2,3,3,3,4,4]
+# def second_most_frequent(nums):
+#     seen_nums = []
+#     greatest_amount = 0
+#     most_frequent = 0
+#     second_greatest = 0
+#     second_frequent_num = 0
+#     for num in nums:
+#         amount = 0
+#         target = num
+#         for item in nums:
+#             if item == target:
+#                 amount+=1
+#         if not num in seen_nums:
+#             if amount >= greatest_amount:
+#                 second_greatest = greatest_amount
+#                 greatest_amount = amount
+#                 second_frequent_num = most_frequent
+#                 most_frequent = num
+#             elif amount >= second_greatest:
+#                 second_greatest = amount
+#                 second_frequent_num = num
+#             seen_nums.append(num)
+#     return second_frequent_num
+# print(second_most_frequent(nums))
+
+#===Day 17 ===
+nums = [3, 7, 3, 2, 8, 7, 1, 2, 9, 1, 5]
+def unique_elements(nums):
+    unique_nums = []
     for num in nums:
         amount = 0
         target = num
         for item in nums:
             if item == target:
-                amount+=1
-        if not num in seen_nums:
-            if amount >= greatest_amount:
-                second_greatest = greatest_amount
-                greatest_amount = amount
-                second_frequent_num = most_frequent
-                most_frequent = num
-            elif amount >= second_greatest:
-                second_greatest = amount
-                second_frequent_num = num
-            seen_nums.append(num)
-        else:
-            pass
-    return second_frequent_num
-print(second_most_frequent(nums))
+                amount +=1
+        if amount == 1:
+            unique_nums.append(num)
+    return len(unique_nums), unique_nums
+print(unique_elements(nums))

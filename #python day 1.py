@@ -1,5 +1,23 @@
 #python day 15
 valid_days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday']
+valid_categories = ['school', 'fitness', 'personal']
+def filter_by_category(tasks):
+    if not tasks:
+        print('No tasks avaliable')
+        return
+    print('Choose category to filter tasks by')
+    for category in valid_categories:
+        print(category)
+    try:
+        category_filter = input().lower()
+    except ValueError:
+        print('Category must be one of the valid categories')
+    if not category_filter in valid_categories:
+        print('Category must be one of the valid categories')
+    print(f'{category_filter.upper()}:')
+    for item in tasks:
+        if item['category'] == category_filter:
+            print(display_task(item))
 def display_task(item, index=False):
     task = item['name']
     difficulty = item['difficulty']
@@ -9,6 +27,9 @@ def display_task(item, index=False):
     else:
         return (f'{task} - {difficulty.upper()} *Priority Level: {priority}')
 def task_statistics(tasks, completed_tasks):
+    if not tasks and not completed_tasks:
+        print('No tasks avaliable')
+        return
     print('Enter current day of week')
     try:
         current_date = input().lower()
@@ -160,7 +181,7 @@ def search_task(tasks):
         if search_term in task:
             print(display_task(item))
             found = True
-    if found == False:
+    if not found:
         print('No tasks found matching search')
 def view_completed_tasks(completed_tasks):
     if not completed_tasks:
@@ -238,11 +259,25 @@ def add_task(tasks):
     if not date in valid_days:
         print('Date must be weekday Monday-Sunday')
         return
+    print('Enter a category for the task')
+    try:
+        category = input().lower()
+    except ValueError:
+        print('Category must be one of the following:')
+        for category in valid_categories:
+            print(category)
+        return
+    if not category in valid_categories:
+        print('Category must be one of the following:')
+        for category in valid_categories:
+            print(category)
+        return
     tasks.append({
         "name":task,
         "difficulty":difficulty,
         "priority":priority,
-        "due_date":date
+        "due_date":date,
+        "category":category
                 })
     print(f'Task {task} added successfully!')
     return tasks
@@ -285,8 +320,7 @@ def run():
     tasks = []
     completed_tasks = []
     while not should_quit:
-        print('''=====\nprint name\nnew name\nadd task\nremove task\nview tasks\nclear tasks\nmark task\nview completed tasks\nsearch\nfilter\nedit task\nsort tasks\nsort improtant\nshow due soon\nadvanced filter\nstats\nquit
-              \n''')
+        print('=====\nnew name\nadd task\nremove task\nedit task\nmark task\nclear tasks\nview tasks\nshow due soon\nfilters\nsort tasks\nstats\nquit')
         choice = input().lower()
         if choice == 'print name':
             print(print_name(name))
@@ -301,27 +335,38 @@ def run():
         elif choice =='remove task':
             remove_task(tasks)
         elif choice == 'view tasks':
-            view_tasks(tasks)
+            print('incomplete\ncompleted')
+            choice2 = input().lower()
+            if choice2 == 'incomplete':
+                view_tasks(tasks)
+            elif choice2 == 'completed':
+                view_completed_tasks(completed_tasks)
         elif choice == 'clear tasks':
             clear_tasks(tasks)
         elif choice == 'mark task':
             complete_task(tasks, completed_tasks)
-        elif choice == 'view completed tasks':
-            view_completed_tasks(completed_tasks)
         elif choice == 'search':
             search_task(tasks)
-        elif choice == 'filter':
-            filter_tasks(tasks)
+        elif choice == 'filters':
+            print('difficulty\npriority\ncategory')
+            choice2 = input().lower()
+            if choice2 == 'difficulty':
+                filter_tasks(tasks)
+            elif choice2 == 'priority':
+                advanced_filter(tasks)
+            elif choice2 == 'category':
+                filter_by_category(tasks)
         elif choice == 'edit task':
             edit_task(tasks)
         elif choice == 'sort tasks':
-            sort_tasks(tasks)
-        elif choice == 'sort important':
-            sort_important(tasks)
+            print('difficulty\npriority\n')
+            choice2 = input().lower()
+            if choice2 == 'difficulty':
+                sort_tasks(tasks)
+            elif choice2 == 'priority':
+                sort_important(tasks)
         elif choice == 'show due soon':
             show_due_soon(tasks)
-        elif choice == 'advanced filter':
-            advanced_filter(tasks)
         elif choice == 'stats':
             task_statistics(tasks, completed_tasks)
         else:
