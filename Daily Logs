@@ -93,3 +93,24 @@ Basically it allows you to validate and create an input thats either a number or
 which is the create_input, to send a message to the outer function, for example it could be remove_task, in order to stop the outer function when the
 input is invalid. This was pretty simple, just gotta make the inner function return a signal that the outer function checks to stop. Feels like
 a clunky solution but it works. I also simplified a lot of unecessary validations I was doing, and did a very easy drill on looping through dictionaries.
+===
+#Day 20 - I did a lot of validation refractoring (dont know if I am using that correctly) but basically I added some more validations. Now there is a validation
+for categories, priorities, and I will probably add one for difficulties as well later too. I also went through and actually added my previous create_input() function
+to nearly everything, and I am thinking about adding an extra part of the function to check if the input is empty for future functions. For now I won't add it though since
+most of my functions don't do that. I also did a drill on sorting incomplete tasks based on priority from greatest to least.
+It was easy since I just used a reverse sort function + a loop to check which tasks were incomplete. 
+  def validate_category(category):
+    if not category in valid_categories:
+        print(f'{category} must be one of the following:\n{valid_categories}')
+        return
+    return category
+def validate_priority(priority):
+    if priority < 1 or priority > 5:
+        print('Prioity must be a number 1-5')
+        return
+    return priority
+def validate_date(date):
+    if not date in valid_days:
+        print(f'{date} is not a day Monday-Sunday')
+        return
+    return date
