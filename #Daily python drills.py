@@ -181,17 +181,47 @@
 #     return second_frequent_num
 # print(second_most_frequent(nums))
 
-#===Day 17 ===
-nums = [3, 7, 3, 2, 8, 7, 1, 2, 9, 1, 5]
-def unique_elements(nums):
-    unique_nums = []
-    for num in nums:
-        amount = 0
-        target = num
-        for item in nums:
-            if item == target:
-                amount +=1
-        if amount == 1:
-            unique_nums.append(num)
-    return len(unique_nums), unique_nums
-print(unique_elements(nums))
+# #===Day 17 ===
+# nums = [3, 7, 3, 2, 8, 7, 1, 2, 9, 1, 5]
+# def unique_elements(nums):
+#     unique_nums = []
+#     for num in nums:
+#         amount = 0
+#         target = num
+#         for item in nums:
+#             if item == target:
+#                 amount +=1
+#         if amount == 1:
+#             unique_nums.append(num)
+#     return len(unique_nums), unique_nums
+# print(unique_elements(nums))
+
+#===Day 18===
+# nums = [4, 7, 2, 7, 9, 4, 1, 6, 2, 8, 8, 3]
+# def repeating_nums(nums):
+#     duplicate_nums = []
+#     for num in nums:
+#         amount = 0
+#         target = num
+#         for item in nums:
+#             if item == target:
+#                 amount +=1
+#         if amount > 1 and not num in duplicate_nums:
+#             duplicate_nums.append(num)
+#     return duplicate_nums
+# print(repeating_nums(nums))
+
+#===Day 19 ===
+tasks = [
+    {"name": "calc hw", "completed": True},
+    {"name": "gym", "completed": False},
+    {"name": "essay", "completed": True},
+    {"name": "coding", "completed": False}
+]
+def completed_tasks(tasks):
+    compl_tasks = []
+    for task in tasks:
+        if not task['completed']:
+            compl_tasks.append(task['name'])
+    return compl_tasks
+print(completed_tasks(tasks))
