@@ -1,22 +1,35 @@
-#python day 19
+#python day 20
 valid_days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday']
 valid_categories = ['school', 'fitness', 'personal']
+def validate_category(category):
+    if not category in valid_categories:
+        print(f'{category} must be one of the following:\n{valid_categories}')
+        return
+    return category
+def validate_priority(priority):
+    if priority < 1 or priority > 5:
+        print('Prioity must be a number 1-5')
+        return
+    return priority
 def validate_date(date):
     if not date in valid_days:
         print(f'{date} is not a day Monday-Sunday')
         return
-    else:
-        pass
+    return date
 def create_input(integer=False,text=False):
     if integer:
         try:
-            user_input = int(input())
+            user_input = input()
+            user_input = int(user_input)
         except ValueError:
             print('Input only accepts numbers')
             return
         return user_input
     elif text:
             user_input = input().lower()
+            if not user_input:
+                print('No input detected')
+                return
             return user_input
 def filter_by_date(tasks):
     found = False
@@ -114,13 +127,9 @@ def advanced_filter(tasks):
     difficulty_filter = input().lower()
     if difficulty_filter == 'easy' or difficulty_filter == 'medium' or difficulty_filter == 'hard':
         print('Choose minimum priority (1-5)')
-        try:
-            priority_filter = int(input())
-        except ValueError:
-            print('minimum priority must be a number 1-5')
-            return
-        if priority_filter < 1 or priority_filter > 5:
-            print('minimum priority must be a number 1-5')
+        priority_filter = create_input(integer=True)
+        priority_filter = validate_priority(priority_filter)
+        if not priority_filter:
             return
         for item in tasks:
             if item['difficulty'] == difficulty_filter and item['priority'] >= priority_filter:
@@ -130,16 +139,13 @@ def show_due_soon(tasks):
         print('No tasks currently avaliable')
         return
     print('Choose date')
-    try:
-        date = input().lower()
-    except ValueError:
-        print('Date must be a weekday Monday-Sunday')
-    if date in valid_days:
-        for item in tasks:
-            if item['due_date'] == date:
-                print(display_task(item))
-    else:
-        print('Date must be a weekday Monday-Sunday')
+    date = input().lower()
+    date = validate_date(date)
+    if not date:
+        return
+    for item in tasks:
+        if item['due_date'] == date:
+            print(display_task(item))
 def sort_tasks(tasks):
     if not tasks:
         print('No tasks currently avaliable')
@@ -172,14 +178,10 @@ def edit_task(tasks):
             choice = input().lower()
             if choice == 'name':
                 print('Type new task name')
-                try:
-                    item['name'] = input().lower()
-                except ValueError:
-                    print('Invalid input')
-                    return
+                item['name'] = input().lower()
             elif choice == 'difficulty':
                 print('Choose new difficulty:\n1. Easy\n2. Medium\n3. Hard')
-                difficulty_choice = input().lower()
+                difficulty_choice = create_input(text=True)
                 if difficulty_choice == '1' or difficulty_choice == 'easy':
                     item['difficulty'] = 'easy'
                 elif difficulty_choice == '2' or difficulty_choice == 'medium':
@@ -190,36 +192,23 @@ def edit_task(tasks):
                     print('Invalid input, type either index or difficulty')
             elif choice == 'priority':
                 print('Choose new priority:\n1\n2\n3\n4\n5')
-                try:
-                    priority_choice = int(input())
-                except ValueError:
-                    print('Input must be number 1-5')
+                priority_choice = create_input(integer=True)
+                priority_choice = validate_priority(priority_choice)
+                if not priority_choice:
                     return
-                if priority_choice < 6 and priority_choice > 0:
-                    item['priority'] = priority_choice
-                else:
-                    print('Input must be number 1-5')
-                    return
+                item['priority'] = priority_choice
             elif choice == 'due date':
                 print('Enter new due date')
-                try:
-                    new_date = input().lower()
-                except ValueError:
-                    print('Invalid input')
-                    return
-                if not new_date in valid_days:
-                    print('Invalid date entered, must be day Monday-Sunday')
+                new_date = create_input(text=True)
+                new_date = validate_date(new_date)
+                if not new_date:
                     return
                 item['due_date'] = new_date
             elif choice == 'category':
                 print(f'Assign new category:\n{valid_categories}')
-                try:
-                    new_category = input().lower()
-                except ValueError:
-                    print('Invalid input')
-                    return
-                if not new_category in valid_categories:
-                    print(f'New category must be apart of already existing categories\n{valid_categories}')
+                new_category = create_input(text=True)
+                new_category = validate_category(new_category)
+                if not new_category:
                     return
                 item['category'] = new_category     
             else:
@@ -231,9 +220,8 @@ def filter_tasks(tasks):
         return
     found = False
     print('Choose difficulty to filter\n1. Easy\n2. Medium\n3. Hard')
-    difficulty_filter = input().lower()
+    difficulty_filter = create_input(text=True)
     if not difficulty_filter:
-        print('No input detected')
         return
     for item in tasks:
         if item['difficulty'] == difficulty_filter:
@@ -246,7 +234,9 @@ def search_task(tasks):
         print('No tasks currently avaliable')
         return
     print('Search...')
-    search_term = input()
+    search_term = create_input(text=True)
+    if not search_term:
+        return
     found = False
     for item in tasks:
         task = item['name']
@@ -266,11 +256,10 @@ def complete_task(tasks, completed_tasks):
         return
     print('What task do you wish to mark complete?')
     view_tasks(tasks)
-    try:
-        task_index = int(input())-1
-    except ValueError:
-        print('Please input a valid number')
+    task_index = create_input(integer=True)
+    if not task_index:
         return
+    task_index = task_index-1
     if task_index >= len(tasks) or task_index < 0:
         print('Invalid task number')
     else:
@@ -292,13 +281,14 @@ def print_name(name):
     return (name + ' ')*amount
 def add_task(tasks):
     print('What task do you wish to add?')
-    task = input().lower()
+    task = create_input(text=True)
     if not task:
-        print('Task must have atleast one character')
         return
     print('What is the difficulty of the task?')
     print('\n1. Easy\n2. Medium\n3. Hard')
-    choice = input().lower()
+    choice = create_input(text=True)
+    if not choice:
+        return
     if choice == 'easy':
         difficulty = choice
     elif choice == 'medium':
@@ -316,33 +306,22 @@ def add_task(tasks):
         try:
             priority = int(priority)
         except ValueError:
-            print('User must input a number from 1-5')
+            priority('Priority must be a value 1-5')
             return
-    if priority < 1 or priority > 5:
-        print('Prority level must be a number from 1-5')
+        priority = validate_priority(priority)
+    print('Assign a due date for specified task')    
+    date = create_input(text=True)
+    if not date:
         return
-    print('Assign a due date for specified task')
-    try:
-        date = input().lower()
-        print(date)
-    except ValueError:
-        print('Date must be a weekday Monday-Sunday')
-        return
-    if not date in valid_days:
-        print('Date must be weekday Monday-Sunday')
+    date = validate_date(date)
+    if not date:
         return
     print('Enter a category for the task')
-    try:
-        category = input().lower()
-    except ValueError:
-        print('Category must be one of the following:')
-        for category in valid_categories:
-            print(category)
+    category = create_input(text=True)
+    if not category:
         return
-    if not category in valid_categories:
-        print('Category must be one of the following:')
-        for category in valid_categories:
-            print(category)
+    category = validate_category(category)
+    if not category:
         return
     tasks.append({
         "name":task,

@@ -211,17 +211,38 @@
 #     return duplicate_nums
 # print(repeating_nums(nums))
 
-#===Day 19 ===
+# #===Day 19 ===
+# tasks = [
+#     {"name": "calc hw", "completed": True},
+#     {"name": "gym", "completed": False},
+#     {"name": "essay", "completed": True},
+#     {"name": "coding", "completed": False}
+# ]
+# def completed_tasks(tasks):
+#     compl_tasks = []
+#     for task in tasks:
+#         if not task['completed']:
+#             compl_tasks.append(task['name'])
+#     return compl_tasks
+# print(completed_tasks(tasks))
+
+#=== Day 20 ===
 tasks = [
-    {"name": "calc hw", "completed": True},
-    {"name": "gym", "completed": False},
-    {"name": "essay", "completed": True},
-    {"name": "coding", "completed": False}
+    {"name": "calc hw", "priority": 5, "completed": False},
+    {"name": "gym", "priority": 2, "completed": True},
+    {"name": "essay", "priority": 4, "completed": False},
+    {"name": "coding", "priority": 5, "completed": False},
+    {"name": "laundry", "priority": 1, "completed": True}
 ]
-def completed_tasks(tasks):
-    compl_tasks = []
-    for task in tasks:
-        if not task['completed']:
-            compl_tasks.append(task['name'])
-    return compl_tasks
-print(completed_tasks(tasks))
+def incomplete_sorted(tasks):
+    incomplete = []
+    incomplete_final = []
+    for item in tasks:
+        if not item['completed']:
+            incomplete.append(item)
+    incomplete.sort(key = lambda item: item['priority'], reverse=True)
+    for item in incomplete:
+        incomplete_final.append(item['name'])
+    return incomplete_final
+print(incomplete_sorted(tasks))
+    
