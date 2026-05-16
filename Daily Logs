@@ -80,3 +80,16 @@ Also redid the menu to make it smaller and less convoluted. Tasks now look like:
         "due_date":date,
         "category":category
                 })
+===
+#Day 18 - So apparently I forgot to actually log day 18 ON day 18, so I am sort of writing this with hazy memory. But from what I remember,
+since yesteday I updated tasks (and across the days have been updating tasks with new features) I improved the editting task feature so that
+a user can edit all types of attributes a task has. I also refined the UI and menu, and the filtering tasks
+  def display_task(item, index=False, include_category=False):
+Also did a pretty easy drill on tracking duplicate numbers within a list and returning all of them.
+===
+#Day 19 - Today felt a little unproductive, I made a function to create inputs for me since I was tired of validating every single integer input.
+  def create_input(integer=False,text=False):
+Basically it allows you to validate and create an input thats either a number or text. By doing that I also had to make a way for the inner function,
+which is the create_input, to send a message to the outer function, for example it could be remove_task, in order to stop the outer function when the
+input is invalid. This was pretty simple, just gotta make the inner function return a signal that the outer function checks to stop. Feels like
+a clunky solution but it works. I also simplified a lot of unecessary validations I was doing, and did a very easy drill on looping through dictionaries.
