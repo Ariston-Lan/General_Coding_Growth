@@ -1,4 +1,4 @@
-#python day 20
+#python day 21
 valid_days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday']
 valid_categories = ['school', 'fitness', 'personal']
 def validate_category(category):
@@ -124,7 +124,7 @@ def advanced_filter(tasks):
         print('No tasks avaliable')
         return
     print('Choose difficulty:\nEasy\nMedium\nHard')
-    difficulty_filter = input().lower()
+    difficulty_filter = create_input(text=True)
     if difficulty_filter == 'easy' or difficulty_filter == 'medium' or difficulty_filter == 'hard':
         print('Choose minimum priority (1-5)')
         priority_filter = create_input(integer=True)
@@ -267,6 +267,9 @@ def complete_task(tasks, completed_tasks):
 def get_name():
     'What is your name?'
     name = input()
+    if not name:
+        print('User must input a name of at least one character')
+        return
     return name
 def clear_tasks(tasks):
     if not tasks:
@@ -367,12 +370,17 @@ def run():
     should_quit = False
     print('What is your name?')
     name = get_name()
+    while not name:
+        name = get_name()
+    print(f'Hello {name}!')
     tasks = []
     completed_tasks = []
     while not should_quit:
         print('=====\nnew name\nadd task\nremove task\nedit task\nmark task\nclear tasks\nview tasks\nsearch\nshow due soon\nfilters\nsort tasks\nstats\nquit')
-        choice = input().lower()
-        if choice == 'print name':
+        choice = create_input(text=True)
+        if not choice:
+            pass
+        elif choice == 'print name':
             print(print_name(name))
         elif choice == 'quit':
             should_quit = True
@@ -387,7 +395,9 @@ def run():
         elif choice == 'view tasks':
             print('====\nincomplete\ncompleted')
             choice2 = create_input(text=True)
-            if choice2 == 'incomplete':
+            if not choice2:
+                pass
+            elif choice2 == 'incomplete':
                 view_tasks(tasks)
             elif choice2 == 'completed':
                 view_completed_tasks(completed_tasks)
@@ -402,7 +412,9 @@ def run():
         elif choice == 'filters':
             print('====\ndifficulty\npriority\ndue date\ncategory')
             choice2 = create_input(text=True)
-            if choice2 == 'difficulty':
+            if not choice2:
+                pass
+            elif choice2 == 'difficulty':
                 filter_tasks(tasks)
             elif choice2 == 'priority':
                 advanced_filter(tasks)
@@ -417,7 +429,9 @@ def run():
         elif choice == 'sort tasks':
             print('====\ndifficulty\npriority\n')
             choice2 = create_input(text=True)
-            if choice2 == 'difficulty':
+            if not choice2:
+                pass
+            elif choice2 == 'difficulty':
                 sort_tasks(tasks)
             elif choice2 == 'priority':
                 sort_important(tasks)

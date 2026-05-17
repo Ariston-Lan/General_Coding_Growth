@@ -211,7 +211,7 @@
 #     return duplicate_nums
 # print(repeating_nums(nums))
 
-# #===Day 19 ===
+# #===Day 19===
 # tasks = [
 #     {"name": "calc hw", "completed": True},
 #     {"name": "gym", "completed": False},
@@ -226,23 +226,51 @@
 #     return compl_tasks
 # print(completed_tasks(tasks))
 
-#=== Day 20 ===
+#=== Day 20===
+# tasks = [
+#     {"name": "calc hw", "priority": 5, "completed": False},
+#     {"name": "gym", "priority": 2, "completed": True},
+#     {"name": "essay", "priority": 4, "completed": False},
+#     {"name": "coding", "priority": 5, "completed": False},
+#     {"name": "laundry", "priority": 1, "completed": True}
+# ]
+# def incomplete_sorted(tasks):
+#     incomplete = []
+#     incomplete_final = []
+#     for item in tasks:
+#         if not item['completed']:
+#             incomplete.append(item)
+#     incomplete.sort(key = lambda item: item['priority'], reverse=True)
+#     for item in incomplete:
+#         incomplete_final.append(item['name'])
+#     return incomplete_final
+# print(incomplete_sorted(tasks))
+
+#=== Day 21===
 tasks = [
-    {"name": "calc hw", "priority": 5, "completed": False},
-    {"name": "gym", "priority": 2, "completed": True},
-    {"name": "essay", "priority": 4, "completed": False},
-    {"name": "coding", "priority": 5, "completed": False},
-    {"name": "laundry", "priority": 1, "completed": True}
+    {"name": "calc hw", "category": "school", "completed": False},
+    {"name": "gym", "category": "fitness", "completed": True},
+    {"name": "essay", "category": "school", "completed": False},
+    {"name": "coding", "category": "personal", "completed": False},
+    {"name": "laundry", "category": "personal", "completed": True}
 ]
-def incomplete_sorted(tasks):
-    incomplete = []
-    incomplete_final = []
+
+def incomplete_per_category(tasks):
+    categories = []
+    final = {}
     for item in tasks:
-        if not item['completed']:
-            incomplete.append(item)
-    incomplete.sort(key = lambda item: item['priority'], reverse=True)
-    for item in incomplete:
-        incomplete_final.append(item['name'])
-    return incomplete_final
-print(incomplete_sorted(tasks))
+        category = item['category']
+        target = category
+        for item2 in tasks:
+            if item2['category'] == category and not category in categories:
+                categories.append(target)
+    for category in categories:
+        incomplete_amount = 0
+        for item in tasks:
+            if not item['completed'] and item['category'] == category:
+                incomplete_amount+=1
+        if incomplete_amount:
+            final[category] = incomplete_amount
+    return final
+print(incomplete_per_category(tasks))
     
