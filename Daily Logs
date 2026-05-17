@@ -114,3 +114,29 @@ def validate_date(date):
         print(f'{date} is not a day Monday-Sunday')
         return
     return date
+===
+#I didn't do a lot programming wise today, because instead I dedicated the majority of the session to learning JSON, and finish a drill about sorting through
+tasks and getting categories from tasks. Which was pretty easy, it was like sorting through numbers except I had to use the structure for tasks instead.
+But the most impotant thing is I learned how to use JSON files, and how to save and load dictionaries. This will help make my project feel a lot more real,
+as its no longer just adding cool features but real retention of information across runthroughs.
+  import json
+
+tasks = []
+
+tasks.append({'name':'Homework'})
+tasks.append({'name':'Gym'})
+tasks.append({'name':'Python'})
+
+with open('mydata.json', 'w') as f:
+    json.dump(tasks, f)
+print('ran')
+print(tasks)
+tasks.clear()
+if not tasks:
+    print('No current tasks, loading from save file')
+    f = open('mydata.json')
+    tasks = json.load(f)
+    f.close
+print(tasks)
+
+This is me testing out JSON and how it works.
