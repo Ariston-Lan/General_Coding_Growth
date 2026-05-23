@@ -141,7 +141,7 @@ print(tasks)
 
 This is me testing out JSON and how it works.
 ===
-#Day 22 I am so tired, but today was relatively easy, added file persistence to my program through JSON and os. I truly don't know too much about these things,
+#Day 22 - I am so tired, but today was relatively easy, added file persistence to my program through JSON and os. I truly don't know too much about these things,
 I know JSON is for managing files within python and I assume os is like a simple way to access and look at files. I used os to check whether user_date was empty then
 obviously I used JSON to save and load data, so now file data persists between users. The next step after I spruce up the menu and add some key features, is making this program able
 to handle multiple users. After that I might ship it, just so I can see that process, not expecting a real successful app to come out of this but experimenting with UI for this app 
@@ -170,3 +170,18 @@ def run():
         print(f'Hey {name}!')
 
 This is all the major code I did today. Super excited because this step makes my program feel real, and also makes me feel like I can do so much more with future projects!!!
+===
+#Day 23 - This day was ass. I learned that copy is INCREDIBLY important when creating an undo functionality. My method was not the most efficient but I did it purely so I can learn
+and not use the same long strenious method ever again. That is it, that is the whole log for today because I truly am that irritated.
+  def backlog(tasks, completed_tasks, name):
+      tasks_backlog = []
+      for task in tasks:
+          tasks_backlog.append(task.copy())
+      backlog = {'tasks':(tasks_backlog),
+                 'completed_tasks':completed_tasks.copy(),
+                 'username':name
+                 }
+      return backlog
+
+This is what I did and I ALSO made every single function take a screenshot (the backlog) at the start and RETURN the screenshot if the function completed successfully. Then I made backlog
+that specific screenshot ONLY IF the function had returned a truthy value (which in this case the only truthy value it returns IS the screenshot so yea).
