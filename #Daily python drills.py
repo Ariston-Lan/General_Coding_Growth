@@ -247,30 +247,46 @@
 # print(incomplete_sorted(tasks))
 
 #=== Day 21===
-tasks = [
-    {"name": "calc hw", "category": "school", "completed": False},
-    {"name": "gym", "category": "fitness", "completed": True},
-    {"name": "essay", "category": "school", "completed": False},
-    {"name": "coding", "category": "personal", "completed": False},
-    {"name": "laundry", "category": "personal", "completed": True}
-]
+# tasks = [
+#     {"name": "calc hw", "category": "school", "completed": False},
+#     {"name": "gym", "category": "fitness", "completed": True},
+#     {"name": "essay", "category": "school", "completed": False},
+#     {"name": "coding", "category": "personal", "completed": False},
+#     {"name": "laundry", "category": "personal", "completed": True}
+# ]
 
-def incomplete_per_category(tasks):
-    categories = []
-    final = {}
-    for item in tasks:
-        category = item['category']
-        target = category
-        for item2 in tasks:
-            if item2['category'] == category and not category in categories:
-                categories.append(target)
-    for category in categories:
-        incomplete_amount = 0
-        for item in tasks:
-            if not item['completed'] and item['category'] == category:
-                incomplete_amount+=1
-        if incomplete_amount:
-            final[category] = incomplete_amount
+# def incomplete_per_category(tasks):
+#     categories = []
+#     final = {}
+#     for item in tasks:
+#         category = item['category']
+#         target = category
+#         for item2 in tasks:
+#             if item2['category'] == category and not category in categories:
+#                 categories.append(target)
+#     for category in categories:
+#         incomplete_amount = 0
+#         for item in tasks:
+#             if not item['completed'] and item['category'] == category:
+#                 incomplete_amount+=1
+#         if incomplete_amount:
+#             final[category] = incomplete_amount
+#     return final
+# print(incomplete_per_category(tasks))
+
+#=== Day 22===
+tasks = [
+    {"name": "calc hw", "priority": 5},
+    {"name": "gym", "priority": 2},
+    {"name": "essay", "priority": 4}
+]
+def remove_task(tasks, task_name):
+    for index, task in enumerate(tasks):
+        if task['name'] == task_name:
+            removed_task = tasks.pop(index)
+        else:
+            final = 'No task matching given name'
+            return final
+    final = f'Task removed: {removed_task}\nCurrent tasks: {tasks}'
     return final
-print(incomplete_per_category(tasks))
-    
+print(remove_task(tasks, 'calc hw'))

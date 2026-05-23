@@ -1,6 +1,24 @@
-#python day 21
+#python day 23
+import json
+import os
 valid_days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday']
 valid_categories = ['school', 'fitness', 'personal']
+def backlog(tasks, completed_tasks, name):
+    tasks_backlog = []
+    for task in tasks:
+        tasks_backlog.append(task.copy())
+    backlog = {'tasks':(tasks_backlog),
+               'completed_tasks':completed_tasks.copy(),
+               'username':name
+               }
+    return backlog
+def save_data(data, tasks, completed_tasks, name):
+    data = {
+        'tasks':tasks,
+        'completed_tasks':completed_tasks,
+        'username':name
+    }
+    return data
 def validate_category(category):
     if not category in valid_categories:
         print(f'{category} must be one of the following:\n{valid_categories}')
@@ -162,7 +180,9 @@ def sort_tasks(tasks):
     for item in tasks:
         if item['difficulty'] == 'hard':
             print(display_task(item))
-def edit_task(tasks):
+def edit_task(tasks, completed_tasks, name):
+    previous_state = backlog(tasks, completed_tasks, name)
+    print(previous_state['tasks'])
     if not tasks:
         print('No task currently avaliable')
         return
@@ -179,15 +199,19 @@ def edit_task(tasks):
             if choice == 'name':
                 print('Type new task name')
                 item['name'] = input().lower()
+                return previous_state
             elif choice == 'difficulty':
                 print('Choose new difficulty:\n1. Easy\n2. Medium\n3. Hard')
                 difficulty_choice = create_input(text=True)
                 if difficulty_choice == '1' or difficulty_choice == 'easy':
                     item['difficulty'] = 'easy'
+                    return previous_state
                 elif difficulty_choice == '2' or difficulty_choice == 'medium':
                     item['difficulty'] = 'medium'
+                    return previous_state
                 elif difficulty_choice == '3' or difficulty_choice == 'hard':
                     item['difficulty'] = 'hard'
+                    return previous_state
                 else:
                     print('Invalid input, type either index or difficulty')
             elif choice == 'priority':
@@ -197,20 +221,23 @@ def edit_task(tasks):
                 if not priority_choice:
                     return
                 item['priority'] = priority_choice
+                return previous_state
             elif choice == 'due date':
                 print('Enter new due date')
                 new_date = create_input(text=True)
                 new_date = validate_date(new_date)
                 if not new_date:
                     return
-                item['due_date'] = new_date
+                item['due_date'] = new_date 
+                return previous_state  
             elif choice == 'category':
                 print(f'Assign new category:\n{valid_categories}')
                 new_category = create_input(text=True)
                 new_category = validate_category(new_category)
                 if not new_category:
                     return
-                item['category'] = new_category     
+                item['category'] = new_category   
+                return previous_state  
             else:
                 print(f'{choice} is not an option')
                 return  
@@ -250,7 +277,8 @@ def view_completed_tasks(completed_tasks):
         print('No tasks completed')
     for index, item in enumerate(completed_tasks):
         print(display_task(item, index))
-def complete_task(tasks, completed_tasks):
+def complete_task(tasks, completed_tasks, name):
+    backlog = save_data(backlog, tasks, completed_tasks, name)
     if not tasks:
         print('No task currently avaliable')
         return
@@ -264,6 +292,7 @@ def complete_task(tasks, completed_tasks):
         print('Invalid task number')
     else:
         completed_tasks.append(tasks.pop(task_index))
+        return backlog
 def get_name():
     'What is your name?'
     name = input()
@@ -271,18 +300,20 @@ def get_name():
         print('User must input a name of at least one character')
         return
     return name
-def clear_tasks(tasks):
+def clear_tasks(tasks, completed_tasks, name):
+    previous_state = backlog(tasks, completed_tasks, name)
     if not tasks:
         print('No tasks to clear')
     else:
         tasks.clear()
         print('All tasks cleared!')
-    return tasks
+    return previous_state
 def print_name(name):
     print('How many times do you wish to print your name?')
     amount = int(input())
     return (name + ' ')*amount
-def add_task(tasks):
+def add_task(tasks, completed_tasks, name):
+    previous_state  = backlog(tasks, completed_tasks, name)
     print('What task do you wish to add?')
     task = create_input(text=True)
     if not task:
@@ -334,8 +365,9 @@ def add_task(tasks):
         "category":category
                 })
     print(f'Task {task} added successfully!')
-    return tasks
-def remove_task(tasks):
+    return previous_state
+def remove_task(tasks, completed_tasks, name):
+    previous_state = backlog(tasks, completed_tasks, name)
     if not tasks:
         print('No tasks to remove')
         return
@@ -350,7 +382,7 @@ def remove_task(tasks):
     else:
         tasks.remove(tasks[task_index])
         print(f'Task removed successfully!')
-    return tasks
+    return previous_state
 def view_tasks(tasks):
     if not tasks:
         print('No tasks available')
@@ -368,79 +400,99 @@ def sort_important(tasks):
     print(final)
 def run():
     should_quit = False
-    print('What is your name?')
-    name = get_name()
-    while not name:
+    data = 'user_data.json'
+    if not os.path.isfile(data):
+        print('What is your name?')
         name = get_name()
-    print(f'Hello {name}!')
-    tasks = []
-    completed_tasks = []
-    while not should_quit:
-        print('=====\nnew name\nadd task\nremove task\nedit task\nmark task\nclear tasks\nview tasks\nsearch\nshow due soon\nfilters\nsort tasks\nstats\nquit')
-        choice = create_input(text=True)
-        if not choice:
-            pass
-        elif choice == 'print name':
-            print(print_name(name))
-        elif choice == 'quit':
-            should_quit = True
-            print ('Session Terminated')
-        elif choice == 'new name':
-            print('What is your new name?')
+        while not name:
             name = get_name()
-        elif choice == 'add task':
-            add_task(tasks)
-        elif choice =='remove task':
-            remove_task(tasks)
-        elif choice == 'view tasks':
-            print('====\nincomplete\ncompleted')
-            choice2 = create_input(text=True)
-            if not choice2:
+        print(f'Hello {name}!')
+        tasks = []
+        completed_tasks = []
+        data = save_data(data, tasks, completed_tasks, name)
+        backlog = data
+    else:
+        f = open('user_data.json')
+        data = json.load(f)
+        f.close
+        backlog = data
+        tasks = data['tasks']
+        completed_tasks = data['completed_tasks']
+        name = data['username']
+        print(f'Hey {name}!')
+    while not should_quit:
+            print('=====\nnew name\nadd task\nremove task\nedit task\nmark task\nclear tasks\nview tasks\nsearch\nshow due soon\nfilters\nsort tasks\nstats\nquit')
+            choice = create_input(text=True)
+            if not choice:
                 pass
-            elif choice2 == 'incomplete':
-                view_tasks(tasks)
-            elif choice2 == 'completed':
-                view_completed_tasks(completed_tasks)
+            elif choice == 'print name':
+                print(print_name(name))
+            elif choice == 'quit':
+                should_quit = True
+                data = save_data(data, tasks, completed_tasks, name)
+                with open('user_data.json', 'w') as f:
+                    json.dump(data, f)
+                print ('Session Terminated')
+            elif choice == 'new name':
+                print('What is your new name?')
+                name = get_name()
+            elif choice == 'add task':
+                backlog = add_task(tasks, completed_tasks, name)
+            elif choice =='remove task':
+                backlog = remove_task(tasks, completed_tasks, name)
+            elif choice == 'view tasks':
+                print('====\nincomplete\ncompleted')
+                choice2 = create_input(text=True)
+                if not choice2:
+                    pass
+                elif choice2 == 'incomplete':
+                    view_tasks(tasks)
+                elif choice2 == 'completed':
+                    view_completed_tasks(completed_tasks)
+                else:
+                    print(f'{choice2} is not an option')
+            elif choice == 'clear tasks':
+                backlogacklog = clear_tasks(tasks, completed_tasks, name)
+            elif choice == 'mark task':
+                complete_task(tasks, completed_tasks, name)
+            elif choice == 'search':
+                search_task(tasks)
+            elif choice == 'filters':
+                print('====\ndifficulty\npriority\ndue date\ncategory')
+                choice2 = create_input(text=True)
+                if not choice2:
+                    pass
+                elif choice2 == 'difficulty':
+                    filter_tasks(tasks)
+                elif choice2 == 'priority':
+                    advanced_filter(tasks)
+                elif choice2 == 'category':
+                    filter_by_category(tasks)
+                elif choice2 == 'due date':
+                    filter_by_date(tasks)
+                else:
+                    print(f'{choice2} is not an option')
+            elif choice == 'edit task':
+                backlog = edit_task(tasks, completed_tasks, name)
+            elif choice == 'sort tasks':
+                print('====\ndifficulty\npriority\n')
+                choice2 = create_input(text=True)
+                if not choice2:
+                    pass
+                elif choice2 == 'difficulty':
+                    sort_tasks(tasks)
+                elif choice2 == 'priority':
+                    sort_important(tasks)
+                else:
+                    print(f'{choice2} is not an option')
+            elif choice == 'show due soon':
+                show_due_soon(tasks)
+            elif choice == 'stats':
+                task_statistics(tasks, completed_tasks)
+            elif choice == 'undo':
+                tasks = backlog['tasks']
+                completed_tasks = backlog['completed_tasks']
+                name = backlog['username']
             else:
-                print(f'{choice2} is not an option')
-        elif choice == 'clear tasks':
-            clear_tasks(tasks)
-        elif choice == 'mark task':
-            complete_task(tasks, completed_tasks)
-        elif choice == 'search':
-            search_task(tasks)
-        elif choice == 'filters':
-            print('====\ndifficulty\npriority\ndue date\ncategory')
-            choice2 = create_input(text=True)
-            if not choice2:
-                pass
-            elif choice2 == 'difficulty':
-                filter_tasks(tasks)
-            elif choice2 == 'priority':
-                advanced_filter(tasks)
-            elif choice2 == 'category':
-                filter_by_category(tasks)
-            elif choice2 == 'due date':
-                filter_by_date(tasks)
-            else:
-                print(f'{choice2} is not an option')
-        elif choice == 'edit task':
-            edit_task(tasks)
-        elif choice == 'sort tasks':
-            print('====\ndifficulty\npriority\n')
-            choice2 = create_input(text=True)
-            if not choice2:
-                pass
-            elif choice2 == 'difficulty':
-                sort_tasks(tasks)
-            elif choice2 == 'priority':
-                sort_important(tasks)
-            else:
-                print(f'{choice2} is not an option')
-        elif choice == 'show due soon':
-            show_due_soon(tasks)
-        elif choice == 'stats':
-            task_statistics(tasks, completed_tasks)
-        else:
-            print(f'\n{choice} is not a valid option\n')
+                print(f'\n{choice} is not a valid option\n')
 run()
