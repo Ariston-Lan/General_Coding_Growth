@@ -1,23 +1,41 @@
-#python day 23
+#python day 27
 import json
 import os
 valid_days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday']
 valid_categories = ['school', 'fitness', 'personal']
-def backlog(tasks, completed_tasks, name):
+def toggle_auto_save(auto_save):
+    if not auto_save:
+        auto_save = True
+        print('*Autosave toggled ON')
+        return auto_save
+    if auto_save:
+        auto_save = False
+        print('*Autosave toggled OFF')
+        return auto_save
+def display_settings(auto_save):
+    if auto_save:
+        return ('Autosave: ON')
+    else:
+        return ('Autosave: OFF')
+def backlog(current_state):
     tasks_backlog = []
-    for task in tasks:
+    for task in current_state['tasks']:
         tasks_backlog.append(task.copy())
     backlog = {'tasks':(tasks_backlog),
-               'completed_tasks':completed_tasks.copy(),
-               'username':name
+               'completed_tasks':current_state['completed_tasks'].copy(),
+               'username':current_state['name'],
+               'autosave':current_state['autosave']
                }
     return backlog
-def save_data(data, tasks, completed_tasks, name):
+def save_data(current_state):
     data = {
-        'tasks':tasks,
-        'completed_tasks':completed_tasks,
-        'username':name
+        'tasks':current_state['tasks'],
+        'completed_tasks':current_state['completed_tasks'],
+        'username':current_state['name'],
+        'autosave':current_state['autosave']
     }
+    with open('user_data.json', 'w') as f:
+        json.dump(data, f)
     return data
 def validate_category(category):
     if not category in valid_categories:
@@ -34,7 +52,7 @@ def validate_date(date):
         print(f'{date} is not a day Monday-Sunday')
         return
     return date
-def create_input(integer=False,text=False):
+def create_input(integer=False,text=False,prompt=''):
     if integer:
         try:
             user_input = input()
@@ -44,7 +62,7 @@ def create_input(integer=False,text=False):
             return
         return user_input
     elif text:
-            user_input = input().lower()
+            user_input = input(prompt).lower()
             if not user_input:
                 print('No input detected')
                 return
@@ -156,7 +174,7 @@ def show_due_soon(tasks):
     if not tasks:
         print('No tasks currently avaliable')
         return
-    print('Choose date')
+    print('Enter current day of week')
     date = input().lower()
     date = validate_date(date)
     if not date:
@@ -180,8 +198,8 @@ def sort_tasks(tasks):
     for item in tasks:
         if item['difficulty'] == 'hard':
             print(display_task(item))
-def edit_task(tasks, completed_tasks, name):
-    previous_state = backlog(tasks, completed_tasks, name)
+def edit_task(tasks, current_state):
+    previous_state = backlog(current_state)
     print(previous_state['tasks'])
     if not tasks:
         print('No task currently avaliable')
@@ -276,9 +294,9 @@ def view_completed_tasks(completed_tasks):
     if not completed_tasks:
         print('No tasks completed')
     for index, item in enumerate(completed_tasks):
-        print(display_task(item, index))
-def complete_task(tasks, completed_tasks, name):
-    backlog = save_data(backlog, tasks, completed_tasks, name)
+        print(display_task(item, index+1))
+def complete_task(tasks, completed_tasks, current_state):
+    previous_state = backlog(current_state)
     if not tasks:
         print('No task currently avaliable')
         return
@@ -292,7 +310,7 @@ def complete_task(tasks, completed_tasks, name):
         print('Invalid task number')
     else:
         completed_tasks.append(tasks.pop(task_index))
-        return backlog
+        return previous_state
 def get_name():
     'What is your name?'
     name = input()
@@ -300,8 +318,8 @@ def get_name():
         print('User must input a name of at least one character')
         return
     return name
-def clear_tasks(tasks, completed_tasks, name):
-    previous_state = backlog(tasks, completed_tasks, name)
+def clear_tasks(tasks, current_state):
+    previous_state = backlog(current_state)
     if not tasks:
         print('No tasks to clear')
     else:
@@ -312,8 +330,8 @@ def print_name(name):
     print('How many times do you wish to print your name?')
     amount = int(input())
     return (name + ' ')*amount
-def add_task(tasks, completed_tasks, name):
-    previous_state  = backlog(tasks, completed_tasks, name)
+def add_task(tasks, current_state):
+    previous_state  = backlog(current_state)
     print('What task do you wish to add?')
     task = create_input(text=True)
     if not task:
@@ -366,8 +384,8 @@ def add_task(tasks, completed_tasks, name):
                 })
     print(f'Task {task} added successfully!')
     return previous_state
-def remove_task(tasks, completed_tasks, name):
-    previous_state = backlog(tasks, completed_tasks, name)
+def remove_task(tasks, current_state):
+    previous_state = backlog(current_state)
     if not tasks:
         print('No tasks to remove')
         return
@@ -401,6 +419,7 @@ def sort_important(tasks):
 def run():
     should_quit = False
     data = 'user_data.json'
+    undo_history = []
     if not os.path.isfile(data):
         print('What is your name?')
         name = get_name()
@@ -409,19 +428,32 @@ def run():
         print(f'Hello {name}!')
         tasks = []
         completed_tasks = []
-        data = save_data(data, tasks, completed_tasks, name)
-        backlog = data
+        auto_save = False
+        current_state = {
+        'tasks':tasks,
+        'completed_tasks':completed_tasks,
+        'name':name,
+        'autosave':auto_save
+    }
+        data = save_data(current_state)
     else:
         f = open('user_data.json')
         data = json.load(f)
-        f.close
-        backlog = data
+        f.close()
         tasks = data['tasks']
         completed_tasks = data['completed_tasks']
         name = data['username']
+        auto_save = data['autosave']
+        current_state = {
+        'tasks':tasks,
+        'completed_tasks':completed_tasks,
+        'name':name,
+        'autosave':auto_save
+    }
+        print(display_settings(auto_save))
         print(f'Hey {name}!')
     while not should_quit:
-            print('=====\nnew name\nadd task\nremove task\nedit task\nmark task\nclear tasks\nview tasks\nsearch\nshow due soon\nfilters\nsort tasks\nstats\nquit')
+            print('=====\nnew name\nadd task\nremove task\nedit task\nmark task\nclear tasks\nview tasks\nsearch\nshow due soon\nfilters\nsort tasks\nstats\nsettings\nquit')
             choice = create_input(text=True)
             if not choice:
                 pass
@@ -429,17 +461,25 @@ def run():
                 print(print_name(name))
             elif choice == 'quit':
                 should_quit = True
-                data = save_data(data, tasks, completed_tasks, name)
-                with open('user_data.json', 'w') as f:
-                    json.dump(data, f)
+                data = save_data(current_state)
                 print ('Session Terminated')
             elif choice == 'new name':
                 print('What is your new name?')
                 name = get_name()
+                if auto_save:
+                    data = save_data(current_state)
             elif choice == 'add task':
-                backlog = add_task(tasks, completed_tasks, name)
+                memory = add_task(tasks, current_state)
+                if memory:
+                    undo_history.append(memory)
+                if auto_save:
+                    data = save_data(current_state)
             elif choice =='remove task':
-                backlog = remove_task(tasks, completed_tasks, name)
+                memory = remove_task(tasks, current_state)
+                if memory:
+                   undo_history.append(memory) 
+                if auto_save:
+                    data = save_data(current_state)
             elif choice == 'view tasks':
                 print('====\nincomplete\ncompleted')
                 choice2 = create_input(text=True)
@@ -452,9 +492,17 @@ def run():
                 else:
                     print(f'{choice2} is not an option')
             elif choice == 'clear tasks':
-                backlogacklog = clear_tasks(tasks, completed_tasks, name)
+                memory = clear_tasks(tasks, current_state)
+                if memory:
+                    undo_history.append(memory)
+                if auto_save:
+                    data = save_data(current_state)
             elif choice == 'mark task':
-                complete_task(tasks, completed_tasks, name)
+                memory = complete_task(tasks, completed_tasks, current_state)
+                if memory:
+                    undo_history.append(memory)
+                if auto_save:
+                    data = save_data(current_state)
             elif choice == 'search':
                 search_task(tasks)
             elif choice == 'filters':
@@ -473,7 +521,11 @@ def run():
                 else:
                     print(f'{choice2} is not an option')
             elif choice == 'edit task':
-                backlog = edit_task(tasks, completed_tasks, name)
+                memory = edit_task(tasks, current_state)
+                if memory:
+                    undo_history.append(memory)
+                if auto_save:
+                    data = save_data(current_state)
             elif choice == 'sort tasks':
                 print('====\ndifficulty\npriority\n')
                 choice2 = create_input(text=True)
@@ -490,9 +542,41 @@ def run():
             elif choice == 'stats':
                 task_statistics(tasks, completed_tasks)
             elif choice == 'undo':
-                tasks = backlog['tasks']
-                completed_tasks = backlog['completed_tasks']
-                name = backlog['username']
+                if undo_history:
+                    undo_state = undo_history.pop()
+                    tasks = undo_state['tasks']
+                    completed_tasks = undo_state['completed_tasks']
+                    name = undo_state['username']
+                    auto_save = undo_state['autosave']
+                    current_state = {
+                    'tasks':tasks,
+                    'completed_tasks':completed_tasks,
+                    'name':name,
+                    'autosave':auto_save
+                    }
+                    if auto_save:
+                        data = save_data(current_state)
+                else:
+                    print('No undos avaliable')
+            elif choice == 'erase':
+                print(clear_completed_tasks(completed_tasks))
+            elif choice == 'settings':
+                print('=====')
+                print(display_settings(auto_save))
+                choice2 = create_input(text=True)
+                if choice2 == 'autosave':
+                    auto_save = toggle_auto_save(auto_save)
+                    current_state['autosave'] = auto_save
+                    data = save_data(current_state)
             else:
                 print(f'\n{choice} is not a valid option\n')
+def clear_completed_tasks(completed_tasks):
+    if not completed_tasks:
+        return 'No completed tasks available'
+    choice = create_input(text=True,prompt='This will wipe the data for ALL completed tasks. To confirm, type yes\n')
+    if choice == 'yes':
+        return 'Tasks wouldve been cleared atp lol'
+        completed_tasks.clear()
+    else:
+        return 'Tasks not cleared, function terminated.'
 run()
