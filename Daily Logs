@@ -185,3 +185,91 @@ and not use the same long strenious method ever again. That is it, that is the w
 
 This is what I did and I ALSO made every single function take a screenshot (the backlog) at the start and RETURN the screenshot if the function completed successfully. Then I made backlog
 that specific screenshot ONLY IF the function had returned a truthy value (which in this case the only truthy value it returns IS the screenshot so yea).
+===
+#Day 24 - Okay so at the time of writing this I am actually on day 29, I haven't been uploading daily because I was busy doing so much stuff for graduation! Hanging out with family going to parties etc.
+So these logs will be less thorough and more of a brief overview of what I believe I did on each day.
+Today I spent a long time with the 'undo' system in the task manager, specifically making it use state management to get undos instead of what I was doing before.
+  elif choice == 'undo':
+      if undo_history:
+          undo_state = undo_history.pop()
+          tasks = undo_state['tasks']
+          completed_tasks = undo_state['completed_tasks']
+          name = undo_state['username']
+          auto_save = undo_state['autosave']
+          current_state = {
+          'tasks':tasks,
+          'completed_tasks':completed_tasks,
+          'name':name,
+          'autosave':auto_save
+          }
+--------------------------------------------------
+  def backlog(current_state):
+--------------------------------------------------
+So as you can see above, undo now relies on a current_state, and the current_state is updated as the program mutates. Backlog is essentially a screenshot of the current state, and it activates
+at the start of every function that mutates the user's tasks list (clear, remove, edit, add, etc.). Then if the function continues normally (no input errors), it'll return the screenshotted state BEFORE the mutation.
+After this occurs, in the run() function, variable memory is assigned the screenshot of the state before mutation. and then this memory variable is appended to the undo history. Also learned that ASSIGNING lists and MUTATING them affects current_state.
+===
+#Day 25 - I prototyped LOCKIN, made it funcitonal, logical, but it felt veryyy unfulfilling due to how quickly and easy I made it, which is why today all I did was plan out my learning path.
+I have decided learning HTML, CSS, and JAVASCRIPT is probably for the best so I can start shipping real things, and also continuing python so that I can keep learning both coding and engineering skills.
+===
+#Day 26 - Started learning basic HTML through codecamp. I won't go through everything I learned, but I know the basic syntax rules, how to make images, texts, headings, titles, href, etc.
+===
+#Day 27 - I made both a validation system for dates (for LOCKIN), and yes I realize there is a database that does that but I wasn't aware while I was making it soooo too late. Also made a timer, a working one but only within the terminal.
+I should probably explain what LOCKIN is though. LOCKIN is an app idea that I had in which a user initiates a lockin session, a giant timer is on their phone now (on the app), and they can choose 15 minutes to an hour (in the prototype). The goal is
+to sort of "lock" their phone, but not literally, more like the user intentionally enters a study session and so they go on the lockin app so there is friction to go on their phone. Then after the session is over, the user rates the session, and the goal is
+after enough time you'll have an accumulation of all the different LOCKIN sessions you've had, you can look at your reflections and what you did during them. Anyways right now, its simply a timer and a session storage system.
+-------------------------------
+  import time
+    def stop_watch():
+        start_time = time.time()
+        try:
+            while True:
+                current_time = time.time()
+                seconds = int((current_time-start_time)%60)
+                minutes = (int((current_time-start_time)/60))%60
+                hours = (int((current_time-start_time)/3600))%60
+                print(f'{hours:02}:{minutes:02}:{seconds:02}')
+                time.sleep(1)
+        except KeyboardInterrupt:
+            end_time = time.time()
+            final_time = int(end_time - start_time)
+            return final_time
+    overtime = stop_watch()
+    print(overtime)
+===
+#Day 28 - I made both a stopwatch and countdown timer (actually implemented within LOCKIN this time). Really don't got too much to say other than that, implemented them into LOCKIN and tried my best to
+seperate the differnet roles of the functions so that the code is readable and you can follow it. Could've done a better job at the abstracting part but I think I did alright.
+  def create_session(sessions):
+      chosen_duration = choose_duration()
+      timer_time = chosen_duration*60
+      user_ended_duration = timer(timer_time)
+      if user_ended_duration:
+          duration = user_ended_duration
+      else:
+          duration = chosen_duration
+      overtime = overtime_stopwatch()
+      if type(overtime) == str:
+          final_duration = duration
+      elif type(overtime) == int:
+          final_duration = duration + overtime
+      print('LOCKIN SESH DONE!!!')
+      valid_ratings = ['red','yellow','green']
+      print("Date:\n")
+      date = create_date()
+      if not date:
+          return
+      print('Rate LOCKIN session')
+      rating = create_input(text=True)
+      if not rating in valid_ratings:
+          print('Rating must be red, yellow, or green')
+          return
+      displayed_time = display_time(final_duration)
+      print(displayed_time)
+      session = {
+          'date':date,
+          'rating':rating,
+          'duration':displayed_time
+      }
+      sessions.append(session)
+      return session
+===
