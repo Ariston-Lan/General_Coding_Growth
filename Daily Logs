@@ -279,4 +279,21 @@ which I am sure any programmer could do but for me it represented the milestone 
 which I think is pretty neat. Oh also I learned classes as well, so I recreated the student gradebook but instead of using functions and dictionaries I used classes as a more concise way to structure
 the system.
 ===
-#Day 30 - 
+#Day 30 - Today was tiring. Yesterday I just briefly was introduced to classes. Today I created an entire program in which classes interacted with one another, different objects and all of that.
+Conceptually it was easy, actually making everything work especially with the run() function and keep track of a system that large taught me something: ABSTRACTING IS NOT JUST FOR FUN. Its not just clever
+it is literally the only thing stopping my brain from exploding as I handle 15 different versions of the same request. With that being said, lots of potential errors in the program but also? Given the fact
+that I had learned classes a day ago, I consider the project a success. I will lightly polish it tomorrow and then probably never touch it again however because...it really annoyed me. Great for learning tho!
+  class User:
+  class Habit:
+  class Habitat:
+  def view_habitats(glob_habitats)
+  def add_habitat(glob_habitats):
+  def remove_habitat(glob_habitats, user):
+  def run():
+  coding = Habitat('Coding', 'Coding everydayyy fooo')
+  run()
+
+Yes I omittedt the code on purpose because it was too fat to fit here. But important takeaways, I was able to create my prototype by thinking of an idea, and bringing it into reality using a new concept.
+That is useful. I was also able to visualize and build interacting objects through class interaction. I made a system that is more expandable and personal than the previous one utilizing only dictionaries and functions.
+===
+#Day 31-
