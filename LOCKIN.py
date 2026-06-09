@@ -1,4 +1,4 @@
-#Daily Python day 28
+#Daily Python day 28, this represents the last time I have touched this project
 import json
 import os
 import time
