@@ -1,4 +1,4 @@
-#python day 27
+#python day 27, this represents the last day I have updated this specific project
 import json
 import os
 valid_days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday']
