@@ -273,3 +273,10 @@ seperate the differnet roles of the functions so that the code is readable and y
       sessions.append(session)
       return session
 ===
+#Day 29 - Today was pretty straightfoward. I continued to learn HTML (which I am not posting here simply because it was through codecamp/not my own structured project yet)
+and I also did a "python diagnostic" which is where I chose from a randomly assigned task and coded it in under an hour. It took my 21 minutes to make a simple student gradebook,
+which I am sure any programmer could do but for me it represented the milestone in which my fundamentals for building and creating had been somehwat solidifed enough to create my own things,
+which I think is pretty neat. Oh also I learned classes as well, so I recreated the student gradebook but instead of using functions and dictionaries I used classes as a more concise way to structure
+the system.
+===
+#Day 30 - 
