@@ -1,4 +1,6 @@
 #HabitHabitat Prototype (Interacting Classes)
+import json
+import os
 class User:
     def __init__(self, username, display_name, animal):
         self.username = username
@@ -44,7 +46,7 @@ class User:
             return "Habitat not found"
         elif habitat:
             hab = self.get_habit(habitat)
-            if hab == "INVALID_FREQUENCY":
+            if hab == "INVALID FREQUENCY":
                 return "Frequency input must be a number 1 - 7"
             self.habitats.append(habitat)
             self.habits.append(hab) 
@@ -77,11 +79,21 @@ class User:
             if found_member is False:
                 return f"Member not found in {habitat.name}"
         return f"{habitat_name} left successfully!"
+    def __str__(self):
+        return ""
 class Habit:
     def __init__(self, name, frequency, habit_origin):
         self.name = name
         self.frequency = frequency
         self.habit_origin = habit_origin
+    
+    def extract(self):
+        data = {
+            'name':self.name,
+            'frequency':self.frequency,
+            'habit_origin':self.habit_origin
+        }
+        return data
 class Habitat:
     def __init__(self, name, description):
         self.name = name
@@ -93,6 +105,12 @@ class Habitat:
         for memb in self.members:
             final += (f'{memb.username}\n')
         return final
+    def extract(self):
+        data = {
+            'name':self.name,
+            'description':self.description
+        }
+        return data
 def view_habitats(glob_habitats):
     if not glob_habitats:
         return('No habitats to show :(')
@@ -155,22 +173,83 @@ def get_display_name():
     display_name = validate_display_name(input("enter display name:\n").title())
     if display_name is False:
         display_name = get_display_name()
+    return display_name
 def validate_display_name(display_name):
-    invalid_characters = [' ', '-', '.','!']
+    invalid_characters = ['-', '.','!']
     if len(display_name) < 5:
         return False
     for character in invalid_characters:
         if character in display_name:
             return False
     return display_name
+def unpack_habitat_data(habitat_data):
+    unpacked_habitats = []
+    for habitat in habitat_data:
+        unpacked_habitats.append(Habitat(habitat['name'],habitat['description']))
+    return unpacked_habitats
+def unpack_habit_data(habit_data):
+    unpacked_habits = []
+    for habit in habit_data:
+        unpacked_habits.append(Habit(habit['name'],habit['frequency'],habit['habit_origin']))
+    return unpacked_habits
+def get_user_data(user):
+    username = user.username
+    display_name = user.display_name
+    animal = user.animal
+    habits = user.habits
+    habitats = user.habitats
+    habits_data = []
+    habitats_data = []
 
+    for habit in habits:
+        habits_data.append(habit.extract())
+    for habitat in habitats:
+        habitats_data.append(habitat.extract())
+
+    data = {
+        'username':username,
+        'display_name':display_name,
+        'animal':animal,
+        'habits_data':habits_data,
+        'habitats_data':habitats_data
+    }
+
+    return data
+def save_user_data(data):
+    with open("user_data_HH.json", "w") as f:
+        json.dump(data, f)
+    return "Data saved successfully!"
+def load_user_data():
+    with open("user_data_HH.json", "r") as f:
+        data = json.load(f)
+    player = User(data['username'], data['display_name'], data['animal'])
+    player.habitats = unpack_habitat_data(data['habitats_data'])
+    player.habits = unpack_habit_data(data['habits_data'])
+    
+    return player
+def save_glob_data(glob_habitats):
+    habitat_data = []
+    for habitat in glob_habitats:
+        habitat_data.append(habitat.extract())
+    with open("glob_data_HH.json", "w") as f:
+        json.dump(habitat_data, f)
+def load_glob_data():
+    with open("glob_data_HH.json", "r") as f:
+        glob_habitat_data = json.load(f)
+    glob_habitats = []
+    for habitat in glob_habitat_data:
+        glob_habitats.append(Habitat(habitat['name'],habitat['description']))
+    return glob_habitats
 def run():
     glob_habitats = [coding]
     is_running = True
-    username = get_username()
-    display_name = get_display_name()
-    animal = get_animal()
-    player = User(username, display_name, animal)
+    if not os.path.isfile("user_data_HH.json"):
+        username = get_username()
+        display_name = get_display_name()
+        animal = get_animal()
+        player = User(username, display_name, animal)
+    else:
+        player = load_user_data()
     while is_running:
         print('Join\nLeave\nView\nRemove\nCreate\nQuit')
         choice = input().lower()
@@ -185,6 +264,9 @@ def run():
         elif choice == "quit":
             is_running = False
             print('Program teriminated')
+            data = get_user_data(player)
+            save_user_data(data)
+            save_glob_data(glob_habitats)
         elif choice == "view":
             print('View global habitats\nView personal habitats')
             choice2 = input().lower()
