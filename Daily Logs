@@ -293,7 +293,14 @@ that I had learned classes a day ago, I consider the project a success. I will l
   coding = Habitat('Coding', 'Coding everydayyy fooo')
   run()
 
-Yes I omittedt the code on purpose because it was too fat to fit here. But important takeaways, I was able to create my prototype by thinking of an idea, and bringing it into reality using a new concept.
+Yes I omitted the code on purpose because it was too fat to fit here. But important takeaways, I was able to create my prototype by thinking of an idea, and bringing it into reality using a new concept.
 That is useful. I was also able to visualize and build interacting objects through class interaction. I made a system that is more expandable and personal than the previous one utilizing only dictionaries and functions.
 ===
-#Day 31-
+#Day 31 - I felt super drained today for a variety of reasons so all I did was add a simple user validation system to the HabitHabitat program and called it a day.
+def validate_animal(animal):
+def get_animal():
+def validate_username(username):
+def get_username():
+def get_display_name():
+def validate_display_name(display_name):
+
