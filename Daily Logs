@@ -303,4 +303,16 @@ def validate_username(username):
 def get_username():
 def get_display_name():
 def validate_display_name(display_name):
+===
+#Day 32 - So today I added to the habit habitat program even though I said I would abandon the project. All I did was add the feature of saving user data and loading it, which ended up taking me
+2 hours because I was unaware of SERILIZATION (not sure if I spelled that correctly.) So today I learned how to do that. Which is essentially just unpacking data from a class object since python can't
+read class objects after loading or saving which...makes since because when you try to load that class object suddenly does not exist. So I packed all the data into a dictionary when quitting the program
+and then unpacked it back into classes, and back into lists, when the program gets booted up. Pretty cool stuff if I say so myself.
+  def unpack_habitat_data(habitat_data):
+  def unpack_habit_data(habit_data)
+  def get_user_data(user):
+  def save_user_data(data):
+  def load_user_data():
+  def save_glob_data(glob_habitats):
+  def load_glob_data():
 
