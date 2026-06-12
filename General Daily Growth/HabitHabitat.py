@@ -77,14 +77,11 @@ class User:
             if found_member is False:
                 return f"Member not found in {habitat.name}"
         return f"{habitat_name} left successfully!"
-
-
 class Habit:
     def __init__(self, name, frequency, habit_origin):
         self.name = name
         self.frequency = frequency
         self.habit_origin = habit_origin
-
 class Habitat:
     def __init__(self, name, description):
         self.name = name
@@ -96,7 +93,6 @@ class Habitat:
         for memb in self.members:
             final += (f'{memb.username}\n')
         return final
-
 def view_habitats(glob_habitats):
     if not glob_habitats:
         return('No habitats to show :(')
@@ -112,7 +108,6 @@ def add_habitat(glob_habitats):
     habitat = Habitat(name, description)
     glob_habitats.append(habitat)
     return f"{name} created successfully!"
-
 def remove_habitat(glob_habitats, user):
     print(view_habitats(glob_habitats))
     name = input("Enter habitat name:\n").title()
@@ -129,13 +124,52 @@ def remove_habitat(glob_habitats, user):
         return f"{name} removed successfully!"
     elif found_habitat is False:
         return f"Habitat {name} not found"
+def validate_animal(animal):
+    valid_animals = ['dog','cat','pig','bird']
+    if not animal in valid_animals:
+        return False
+    else:
+        return animal
+def get_animal():
+    print('Dog | Cat | Bird | Pig')
+    animal = validate_animal(input('Enter your animal avatar:\n').lower())
+    while animal is False:
+        animal = get_animal()
+    return animal
+def validate_username(username):
+    invalid_characters = [' ', '-', '.','!']
+    if len(username) < 5:
+        return False
+    for character in invalid_characters:
+        if character in username:
+            return False
+    else:
+        return username
+def get_username():
+    username = validate_username(input("Enter username:\n"))
+    while username is False:
+        print("Username must be at least 5 characters long, and may not include special characters (' ', '-', '.', '!')")
+        username = get_username()
+    return username
+def get_display_name():
+    display_name = validate_display_name(input("enter display name:\n").title())
+    if display_name is False:
+        display_name = get_display_name()
+def validate_display_name(display_name):
+    invalid_characters = [' ', '-', '.','!']
+    if len(display_name) < 5:
+        return False
+    for character in invalid_characters:
+        if character in display_name:
+            return False
+    return display_name
 
 def run():
     glob_habitats = [coding]
     is_running = True
-    username = input("Enter username:\n")
-    display_name = input("Enter display name:\n").title()
-    animal = input("Enter your animal avatar:\n").lower()
+    username = get_username()
+    display_name = get_display_name()
+    animal = get_animal()
     player = User(username, display_name, animal)
     while is_running:
         print('Join\nLeave\nView\nRemove\nCreate\nQuit')
