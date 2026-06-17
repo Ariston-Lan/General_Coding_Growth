@@ -1,0 +1,16 @@
+# What Are Common Ways to Optomize Media Assets?
+## Image Size
+- When building a webstie you'll often display images in a specific size such as 640x480 resolution (where 640 is width and 480 is height).
+- When preparing your image you want to scale it to a 640x480 size to match that styling. If you serve an image 1920x1080, but you are styling it to be much smaller, you're requiring your users to download unnecessary data.
+
+## File Format
+- Use the most up to date file formats (WEBP or AVIF). PNG and JPG also work but they are also outdated
+
+## Compression Algorithms
+- You can run compression algorithms on your images to reduce file size using tools such as pngcrush for PNGs.
+- Not all formates are lossless. JPG uses lossy compression, each time a jpg is resaved or recompressed some image data is permanently discared, resulting in degraded quality.
+
+# What Are the Different Types of Image Licenses, and How Do They Work?
+
+- Not all images are free for you to use on your website. Beware, and look through image licenses.
+- 
