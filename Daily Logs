@@ -316,3 +316,11 @@ and then unpacked it back into classes, and back into lists, when the program ge
   def save_glob_data(glob_habitats):
   def load_glob_data():
 
+===
+#Day 33-36 - The reason that, for the first time in this daily log I am combining days together, is because across these days I have been slowly chipping away at the freeCodeCamp course on html, and haven't
+actually built any website or project yet. I don't really have anything to show, other than the linkage to my notes which are just simple markdown notes on what freeCodeCamp is teaching me. I am almost done with the
+course as of today (day 36), however, I think it would be better if I also made an ongoing html project similar to how I have done python projects. So that I can have, and see, a measureable output of growth on my 
+frontend development journey.
+===
+#Day 37 - 
+
