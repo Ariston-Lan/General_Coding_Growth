@@ -241,7 +241,7 @@ def load_glob_data():
         glob_habitats.append(Habitat(habitat['name'],habitat['description']))
     return glob_habitats
 def run():
-    glob_habitats = [coding]
+    glob_habitats = load_glob_data()
     is_running = True
     if not os.path.isfile("user_data_HH.json"):
         username = get_username()

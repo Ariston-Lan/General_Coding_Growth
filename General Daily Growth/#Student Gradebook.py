@@ -39,11 +39,11 @@ def calculate_average(students):
     if not students:
         return "No students currently"
     total = len(students)
-    sum = 0
+    grade_sum = 0
     for student in students:
         grade = student['grade']
-        sum += grade
-    avg = sum/total
+        grade_sum += grade
+    avg = grade_sum/total
     return avg
 def run():
     students = []
@@ -63,5 +63,3 @@ def run():
         else:
             print(f'{choice} is not a valid option')
 run()
-
-    
