@@ -325,3 +325,7 @@ frontend development journey.
 #Day 37 - Today I just took notes and finished my final subject for basic HTML. I learned a bit about relative and absolute paths, specifically the importance of single dot, double dot, and slashes when dicating file
 paths. I also learned the different link states, what they mean, and how to represent them in code.
 
+#Day 37 pt 2 - Okay so technically this is supposed to be day 38, but I am also posting my sessions on instagram and I didnt post the html notes, instead I posted what I did today (day 38) as day 37 on instagram. So for
+the sake of organization, this is a continuation of day 37. I havent coded for nearly 2 weeks, for a plethora of reasons (I got into a car crash and my hands got mangled + college) So I wanted to re-enter OOP with a simple project,
+a banking system. I actually didn't even get the bank thing to work because of a variety of reasons but the important part is I got some rust off of my coding skills.
+
