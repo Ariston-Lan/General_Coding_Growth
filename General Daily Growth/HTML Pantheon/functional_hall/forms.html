@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Forms</title>
+    </head>
+    <body>
+        <header>
+            <nav>
+                <a href="../HTML Pantheon Main.html">Home</a>
+            </nav>
+            <h1>Forms</h1>
+            <p>Forms in HTML is the standard format for formatting interactive applications
+                on your website. There are a lot of different types of inputs forms can use,
+                the main ones I will be listing below!
+            </p>
+        </header>
+        <main>
+            <section>
+                <h2>Text inputs</h2>
+                <p>These are some forms in which users manually type in the answer</p>
+                <h3>Quick Pantheon Survey</h3>
+                <p>Since this is a <em>fake</em> survey you don't have to 
+                put in real answers, but if you want to it'd be cool</p>
+                <form action="">
+                    <fieldset>
+                        <legend>Info</legend>
+                        <label for="name">Name
+                            <input required ="text" id="name" name="name" placeholder="John Doe">
+                        </label>
+                        <label for="email">Email
+                            <input required type="email" id="email" name="email" placeholder="e.g. name@gmail.com">
+                        </label>
+                    </fieldset>
+                    <label for="how-are-you-enjoying">Any comments on the Pantheon?
+                        <textarea id="how-are-you-enjoying" name="user_enjoyment" col="30" rows="10" placeholder="Add your thoughts here!"></textarea>
+                    </label>
+                    <button type="submit">Submit Form</button>
+                </form>
+            </section>
+            <section>
+                <h2>Various Buttons</h2>
+                <p>While there are plenty of text based inputs, there are also
+                    a variety of button based inputs as well
+                </p>
+                <h3>Roblox Survey</h3>
+                <p>A survey on some roblox games</p>
+                <form action="">
+                    <fieldset>
+                        <legend>How Are You Enjoying Roblox?</legend>
+                        <label for="Extremely">Extremely
+                            <input required type="radio" value="Extremely" name="roblox_enjoyment">
+                        </label>
+                        <label for="sort-of">Sort Of
+                            <input type="radio" value="sort_of" name="roblox_enjoyment">
+                        </label>
+                        <label for='meh'>Meh
+                            <input type="radio" value="meh" name="roblox_enjoyment">
+                        </label>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Which of these roblox games have you played?</legend>
+                        <label for="an-average-campaign">An Average Campaign
+                            <input required type="checkbox" name="games_played" value="an_average_campaign">
+                        </label>
+                        <label for="natural-disasters">Natural Disasters
+                            <input type="checkbox" name="games_played" value="natural_disasters">
+                        </label>
+                        <label for="decaying-winter">Decaying Winter
+                            <input type="checkbox" name="games_palyed" value="decaying_winter">
+                        </label>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Would You Reccomend Roblox to a friend?</legend>
+                        <select>
+                            <option required selected disabled name="reccomend" value="">Choose</option>
+                            <option name="reccomend" value="absolutely">Absolutely!</option>
+                            <option name="reccomend" value="fuh_nah">Fuh nah twin</option>
+                        </select>
+                    </fieldset>
+                    <button type="submit">Submit Form</button>
+                </form>
+            </section>
+        </main>
+    </body>
+</html>
