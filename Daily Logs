@@ -350,3 +350,15 @@ with a prototype of a potential survey for habithabitat
 Day 43 - I built a simple banking terminal project (one that actually works this time) using getters and setters. I just made it to understand them
 better than I could before.  I didn't do any html today cause I was so tired. I learned some pretty surface level fundamentals on encapsulation, and why
 people use getters and setters in the first place, but other than that pretty uneventful coding session.
+===
+Day 44 - I took some more notes on HTML, specifically learned how to create tables through html and started learning the importance of having accessible websites.
+I know that for the last few days I have been just saying I am "doing notes on HTML", but I have real projects that I have been working on too. Specifically project pages
+detailing the elements that I had learned that specific day. Today I added some stuff to my HTML Pantheon as well, and learned some accessibility tools that I'll have to test out
+personally. I hope that I can find a good space to have disabled people of various types test my webpages, because I don't wanna neglect that skill  just because I can't drill it as
+readily as I can with anything else.
+===
+Day 45 - Took even MORE notes on HTML, and specifically I am learning about accessibility, ARIA and a bunch of other abbreviations I forgot the name of. Basically, it is important that webpages
+are accessible to those with disabilities. Things like screenreaders, and various other non keyboard and mouse set-ups require websites that can remain accessible to those things. So that's what I
+am learning/taking notes on. I also did my first API. "did my first API" sounds weird but I phrase it like that because I had to look up a tutorial and I didn't formally learn how to integrate EVERY API,
+but I learned the general basis of API sends HTTP request to the server, server gives back raw info, and in my case turns that info into python data that I can use any way I like. Later I'll use this to build
+a simple clothes shopping app that shows the lowest prices item based on a vague search.
