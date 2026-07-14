@@ -362,3 +362,29 @@ are accessible to those with disabilities. Things like screenreaders, and variou
 am learning/taking notes on. I also did my first API. "did my first API" sounds weird but I phrase it like that because I had to look up a tutorial and I didn't formally learn how to integrate EVERY API,
 but I learned the general basis of API sends HTTP request to the server, server gives back raw info, and in my case turns that info into python data that I can use any way I like. Later I'll use this to build
 a simple clothes shopping app that shows the lowest prices item based on a vague search.
+===
+Day 46 - Took my final notes on HTML (hopefully) since I finished the codecamp HTML course! Now I just have to get through CSS and then boom. Learned the finishing things about aria attributes
+and then went on to make some codecamp based labs and workshops on them. Didnt do a project page this time though
+===
+Day  47 - Learned about inheritance and polymorphism and so I build HabitHabitat, again, using a LOT of different classes. The entire thing that this project was supposed to teach me was that,
+different classes can inherit different traits and you just divide responsibilities accordingly, for one, and also so you dont have to retype a bunch of code. I did this using in total, 8 classes.
+Which is not that much but it took me a couple hours. Not because I was failing at inheritance, but because I was trying to make every single system work as a system.
+The HabitHabitatSystem class called methods from each of the other classes, it managed the entire thing. It was able to store multiple users and within those user objects, store their habits, habitats,
+and those habits stored their own information, basically just a lot of information being moved and updated and mutated. And lots of validation due to that. Very much enjoyed this project though! 
+I even used some encapsualtion as well.
+-------
+class Habit:
+class Habitat:
+class User:
+class Animal(Habit):
+class Owl(Animal):
+class Wolf(Animal):
+class Foxclass HabitHabitatSystem:
+
+system = HabitHabitatSystem()
+system.run()
+-----------
+Then obviously there is a LOT more code within those things (Actually only 295 lines roughly).
+
+
+
