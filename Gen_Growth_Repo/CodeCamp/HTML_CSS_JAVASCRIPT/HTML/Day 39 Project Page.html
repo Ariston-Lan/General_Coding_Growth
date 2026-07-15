@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Day 39 Project Page</title>
+    </head>
+    <body>
+        <header>
+        <h1>Day 39 Project Page: Description lists, Quotes, Abbreviations, Addresses, & Time </h1>
+        </header>
+        <main>
+            <section>
+                <h2>Description lists</h2>
+                <p>This is an example of a description list about how to fry chicken</p>
+                <div>
+                    <h3>Ingredients Needed for Fried Chicken</h3>
+                    <dl>
+                        <dt>Chicken</dt>
+                        <dd>Chicken legs, breasts, or wings</dd>
+                        <dt>Flour</dt>
+                        <dd>5 cups of Flour</dd>
+                        <dt>Seasoning</dt>
+                        <dd>Paprika</dd>
+                        <dd>Salt</dd>
+                        <dd>Pepper</dd>
+                        <dd>Old Bay</dd>
+                        <dt>Buttermilk</dt>
+                        <dd>1 Carton</dd>
+                        <dt>Bread Crumbs (optional)</dt>
+                        <dd>Add as much as you'd like!</dd>
+                    </dl>
+                    <ol>
+                        <li>Let the chicken thaw, put it in some buttermilk</li>
+                        <li>Get some flour, season it</li>
+                        <li>Get your soaked chicken, put it in the flour, and fry with the oil of your choosing!</li>
+                    </ol>
+                </div>
+            </section>
+            <section>
+                <h2>Quotes</h2>
+                <p>Quotes in html can use both blockquote or just q as elements that distinguish the quoted text from normal text</p>
+                <div>
+                    <h3>Blockquotes</h3>
+                    <h4>Quotes from Aristotle</h4>
+                        <blockquote cite="https://www.azquotes.com/author/524-Aristotle">
+                            <ol>
+                                <li>
+                                    <p>Excellence is never an accident. It is always
+                                    the result of high intention, sincere effort, and
+                                    intelligent execution; it represents the wise choice of many
+                                    alternatives - choice, not chance, determines your destiny.
+                                    </p>
+                                </li>
+                                <li>
+                                    <p>
+                                        Be a free thinker and don't accept everything you
+                                        hear as truth. be critical and evaluate what you believe in.
+                                    </p>
+                                </li>
+                                <li>
+                                    <p>
+                                        The more you know, the more you know you don't know
+                                    </p>
+                                </li>
+                                <li>
+                                    <p>
+                                        The most important relationship we can all have
+                                        is the one you have with yourself, the most important
+                                        journey you can take is one of self-discovery. To know
+                                        yourself, you must spend time with yourself, you must not
+                                        be afraid to be alone. Knowing yourself is the beginning of all
+                                        wisdom
+                                    </p>
+                                </li>
+                                <li>
+                                    <p>
+                                        It is our choice of good or evil that determines our character,
+                                        not our opinion about good or evil.
+                                    </p>
+                                </li>
+                            </ol>
+                        </blockquote>
+                </div>
+                <div>
+                    <h3>Inline Quotes</h3>
+                    <h4>Read carefully - a Funny Use of Quotes!</h4>
+                    <p>Using quotes in paragraphs is easy! After all 
+                        <q cite="https://wisdomquotes.com/short-quotes/">Impossible is for the unwilling</q>. See what I did there?
+                        I can probably do it again. Okay you know what?  
+                        <q cite="https://wisdomquotes.com/short-quotes/">Screw it, let's do it</q>. Okay that was the last one I swear.
+                        but I mean come on lets be real, 
+                        <q cite="https://wisdomquotes.com/short-quotes/">Success is the child of audacity</q>.
+                    </p>
+                </div>
+            </section>
+            <section>
+                <h2>Abbreviations</h2>
+                <p>Abbreviations in HTML are pretty simple, you wrap your specific abbreviation in an "abbr" element.
+                    This is useful for distinguishing the abbreviated word from other text. You can also use the title attribute
+                    to let users know what the abbreviation stands for!
+                </p>
+                <div>
+                    <h3>Famous Abbreviations</h3>
+                    <ul>
+                        <li>
+                            <p><abbr title="National Aeronautics and Space Administration">NASA</abbr> stands
+                            for National Aeronautics and Space Administration</p>
+                        </li>
+                        <li>
+                            <p><abbr title="Central Intelligence Agency">CIA</abbr> 
+                                stands for Central Intelligence Agency</p>
+                        </li>
+                        <li>
+                            <p><abbr title="American Telephone and Telegraph">AT&T</abbr>
+                            stands for American Telephone and Telegraph</p>
+                        </li>
+                    </ul>
+                    <p>By the way, the title attribute allows you to see the abbreviations
+                        meaning by hovering your mouse over the abbreviation! Try it out!
+                    </p>
+                </div>
+            </section>
+            <section>
+                <h2>Addresses</h2>
+                <p>The address element is useful for showing contact information. It contains everything from
+                    phone numbers, to emails, to ya know...the actual address!
+                </p>
+                <div>
+                    <h3>Ariston's Information (100% real!)</h3>
+                    <address>
+                        <p>My phone number (totally real btw): 
+                            <a href="tel:+14445556666">+1 (444)-555-6666</a>
+                        </p>
+                        <p>My email (This one is <b>actually</b> real) 
+                            <a href="mailto:aristonlanier@gmail.com">aristonlanier@gmail.com</a>
+                        </p>
+                        <p>My address (very real!!! totally!!)</p>
+                        <p>
+                            1234 Fan Lane<br />
+                            Sugarfield, KA 51432<br />
+                            United States
+                        </p>
+                    </address>
+                </div>
+            </section>
+            <section>
+                <h2>Time</h2>
+                <p>The time element is made for displaying any time or date,
+                    and the datetime attribute converts it into machine
+                    readable time! </p>
+                <div>
+                    <h3>Famous Dates</h3>
+                    <ul>
+                        <li>
+                            <p><time datetime="--12-31">December 31</time> - New Year's Eve</p>
+                        </li>
+                        <li>
+                            <p><time datetime="--07-04">July 4th</time> - Independence Day</p>
+                        </li>
+                        <li>
+                            <p><time datetime="2000">Year 2000</time> - <abbr title="Year 2000">Y2K</abbr></p>
+                        </li>
+                        <li>
+                            <p><time datetime="1969-07-20">July 20th, 1969</time> - Apollo 11 Moon Landing</p>
+                        </li>
+                        <li>
+                            <p><time datetime="1963-11-22T13:00">November 22, 1963, 1:00PM CST</time> - John F. Kennedy was fatally shot by Harvey Oswald</p>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+    </body>
+</html>

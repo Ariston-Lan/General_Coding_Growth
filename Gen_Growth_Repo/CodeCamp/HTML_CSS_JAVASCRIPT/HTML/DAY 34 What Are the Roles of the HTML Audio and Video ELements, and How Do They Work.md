@@ -1,0 +1,72 @@
+# What Are the Roles of the HTML Audio and Video Elements, and How Do They Work?
+## Audio element
+- allows you to add sound content to your html documents.
+- Supports popular formats such as mp3, wav, and ogg
+## Video element
+- allows you to add video content to your html
+- supports popular formats such as mp4, ogg, and webm formats
+## Inclusion of Audio Element
+- To include audio element, type element with the src attribute to indicate the location of your audio file
+- If you want to see the audio player on the page, include the CONTROLS attribute
+### Example: Audio Element Attributes
+```html
+<audio src="https://cdn.freecodecamp.org/curriculum/js-music-player/cruising-for-a-musing.mp3"
+controls
+loop
+muted
+></audio>
+```
+#### Controls attribute
+- Controls is a boolean attribute that allows uers to manage audio playback (pausing/resuming)
+- Some browsers, such as safari, may not display a volume control by default even when the control attribute is present
+#### Loop attribute
+- Loop is a boolean attribute that causes the audio to loop
+#### Muted attribute
+- Muted is a boolean attribute that causes the audio to be initially muted before playing
+
+### Example: Audio File Types
+```html
+<audio control>
+    <source src="audio.ogg" type="audio/ogg">
+    <source src="audio.mp3" type="audio/mpeg">
+    <source src="audio.wav" type="audio/wav">
+</audio>
+```
+- The browser will first start with the ogg type, and if it can't play the audio, it'll move down to the next type in the list
+
+## Inclusion of Video Element
+- All attributes for the audio element so far also apply to the video element.
+
+### Example: Video Element Attributes
+```html
+<video
+    src="https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4"
+    loop
+    controls
+    muted
+    width="400"
+    poster="https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217"
+></video>
+```
+#### Source Attribute, Video File Types
+- The same logic used for audio file types applies to video file types as well
+```html
+<video
+  controls
+  width="400"
+  poster="https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217"
+>
+  <source
+    src="https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4"
+    type="video/mp4"
+  />
+  <source
+    src="https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.webm"
+    type="video/webm"
+  />
+  Your browser does not support the video tag.
+</video>
+```
+
+
+

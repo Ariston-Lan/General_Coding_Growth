@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Iframes</title>
+    </head>
+    <body>
+        <header>
+            <h1>Iframes</h1>
+            <p>Iframes are a type of replaced element, meaning their content is
+                determined by an external source rather than by CSS itself. The actual
+                iframe element itself <b>embeds an external site onto your website</b>
+            </p>
+            <nav>
+                <a href="../HTML Pantheon Main.html">Home</a>
+            </nav>
+        </header>
+        <main>
+            <div>
+                <h2>Video on C++</h2>
+                <p>Fun fact, when copying a video from youtube, you'll have a choice to copy the embedded code instead
+                    of the video link. That code is specifically made for the iframe element, as it allows for videos to be
+                    integrated onto websites in the right format, predetermined by youtube! This touches on the fundamental
+                    function of replaced elements.
+                </p>
+                <figure>
+                    <img src="../media/embedded.png" alt="Picture of Copy Embedded Code option upon right clicking a youtube video">
+                    <figcaption>Here is an example of the "Copy Embedded Code" option</figcaption>
+                </figure>
+                <figure>
+                    <iframe width="992" height="569" src="https://www.youtube.com/embed/ZzaPdXTrSb8" title="C++ Tutorial for Beginners - Learn C++ in 1 Hour" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <figcaption>This entire video's format, including its <em>very VERY</em> large size were all predertmined by the youtube browser! Things such as the ability to autoplay, accelerate the video, and copy it, were all likewise decided by youtube as the external source.</figcaption>
+                </figure>
+            </div>
+            <div>
+                <h2>Interactive Map</h2>
+                <p>Iframes can be used for both videos and images, true, but they can also be used
+                    to place external sites onto your webpage, so that people can interact with them!
+                </p>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2887.2698445075525!2d-79.38737772883606!3d43.64255382013208!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b34d5e29b6e77%3A0x2785ef4807ea4519!2sToronto%20Railway%20Museum!5e0!3m2!1sen!2sus!4v1783318432916!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                <figcaption>This is a map of the Toronto Railway Museum. You can interact with it too!</figcaption>
+            </div>
+        </main>
+    </body>
+</html>
